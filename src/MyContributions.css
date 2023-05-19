@@ -1,0 +1,11 @@
+.contributionCardContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 800px;
+    margin: 24px auto;
+}
+
+.addResource{
+    width: 150px;
+}

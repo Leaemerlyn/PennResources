@@ -1,22 +1,20 @@
 import { Button, Panel, Placeholder, Tag } from "rsuite";
 import "./ResourceCard.css"
 import { useState } from "react";
+import EditIcon from '@rsuite/icons/Edit'
 
-
-export function ResourceCard () {
-    const [hover, setHover] = useState(false);
+export function ContributionCard () {
 
     return (
         <div className="resourceCard" >
-        <Panel header="Proof By Contradiction" bordered onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} shaded={hover} style={{cursor:'pointer'}}>
+        <Panel header="Proof By Contradiction" bordered>
             <p>Watch the first 30 minutes of the video, it is very informative</p>
             <br></br>
             <div className="bottomInfo">
                 <Tag>Video</Tag>
-                <p>By: Lea Emerlyn</p>
+                <EditIcon style={{ fontSize: "1.5em", cursor:'pointer'}} />
             </div>
         </Panel>
         </div>
     )
 }
-

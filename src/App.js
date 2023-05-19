@@ -4,6 +4,7 @@ import { Navbar, Nav} from 'rsuite';
 import { useState } from 'react';
 import { Resources } from './Resources';
 import { Contribute } from './Contribute';
+import { MyContributions } from './MyContributions';
 import { Contact } from './Contact';
 
 
@@ -16,7 +17,7 @@ function App() {
       <Navbar.Brand href="#"><img id="logo" src="logo.png" alt="logo"/></Navbar.Brand>
       <Nav>
         <Nav.Item onClick={() => setPage("Resources")}>Resources</Nav.Item>
-        <Nav.Item onClick={() => setPage("Contribute")}>Contribute</Nav.Item>
+        <Nav.Item onClick={() => setPage("My-Contributions")}>My Contributions</Nav.Item>
         <Nav.Item onClick={() => setPage("Contact")}>Contact</Nav.Item>
       </Nav>
       <Nav pullRight>
@@ -25,7 +26,7 @@ function App() {
     </Navbar>
 
     {page === "Resources" ? <Resources/>: <div></div>}
-    {page === "Contribute" ? <Contribute/>: <div></div>}
+    {page === "My-Contributions" ? <MyContributions/>: <div></div>}
     {page === "Contact" ? <Contact/>: <div></div>}
 
     </>
