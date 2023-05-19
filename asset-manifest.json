@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/PennResources/static/css/main.ee0630db.css",
-    "main.js": "/PennResources/static/js/main.51fa905a.js",
+    "main.css": "/PennResources/static/css/main.2b69d795.css",
+    "main.js": "/PennResources/static/js/main.4179ffd5.js",
     "static/js/787.482fb73a.chunk.js": "/PennResources/static/js/787.482fb73a.chunk.js",
     "index.html": "/PennResources/index.html",
-    "main.ee0630db.css.map": "/PennResources/static/css/main.ee0630db.css.map",
-    "main.51fa905a.js.map": "/PennResources/static/js/main.51fa905a.js.map",
+    "main.2b69d795.css.map": "/PennResources/static/css/main.2b69d795.css.map",
+    "main.4179ffd5.js.map": "/PennResources/static/js/main.4179ffd5.js.map",
     "787.482fb73a.chunk.js.map": "/PennResources/static/js/787.482fb73a.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.ee0630db.css",
-    "static/js/main.51fa905a.js"
+    "static/css/main.2b69d795.css",
+    "static/js/main.4179ffd5.js"
   ]
 }
