@@ -1,0 +1,17 @@
+.ResourcesContainer{
+    max-width: 800px;
+    margin: auto;
+}
+
+.criteria{
+    display: flex;
+    gap: 10px;
+    margin: 30px 0px 10px 12px; 
+}
+
+.cards{
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    margin: 12px;
+}
