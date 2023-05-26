@@ -20,7 +20,7 @@ function App() {
       await signInWithPopup(auth,googleProvider);
       setLoggedIn(true);
     } catch (err){
-      console.error(err);
+      console.log(err);
     }
   }
 
@@ -29,7 +29,7 @@ function App() {
       await signOut(auth);
       setLoggedIn(false);
     } catch (err){
-      console.error(err);
+      console.log(err);
     }
   }
 
@@ -38,7 +38,7 @@ function App() {
     <Navbar>
       <Navbar.Brand href="#"><img id="logo" src="logo.png" alt="logo"/></Navbar.Brand>
       <Nav>
-        <Nav.Item onClick={() => setPage("Resources")} active>Resources</Nav.Item>
+        <Nav.Item onClick={() => setPage("Resources")}>Resources</Nav.Item>
         <Nav.Item onClick={() => setPage("Contact")}>Contact</Nav.Item>
       </Nav>
       <Nav pullRight>
