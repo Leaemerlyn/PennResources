@@ -1,6 +1,6 @@
 import { Button, CheckPicker, Input, InputPicker } from 'rsuite';
 import "./MyContributions.css"
-import { ContributionCard } from './ContributionCard';
+import { ContributionCard } from '../components/ContributionCard';
 import { useState } from 'react';
 import { Contribute } from './Contribute';
 

@@ -1,6 +1,6 @@
 import { Button, CheckPicker, Input, InputPicker } from 'rsuite';
 import "./Contribute.css"
-import { ContributionCard } from './ContributionCard';
+import { ContributionCard } from '../components/ContributionCard';
 
 const course = ["591", "592"].map(item => ({ label: item, value: item }));
 const module = ["Module 1", "Module 2"].map(item => ({ label: item, value: item }));
