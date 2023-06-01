@@ -1,9 +1,10 @@
 import { Button } from "rsuite";
+import './Welcome.css'
 
 export function Welcome () {
     return (
         <>
-            <h3>
+            <h3 className='test'>
             Welcome to Penn Resources 
             </h3>
             <p>
