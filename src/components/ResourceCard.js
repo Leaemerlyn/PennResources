@@ -3,17 +3,17 @@ import "./ResourceCard.css"
 import { useState } from "react";
 
 
-export function ResourceCard () {
+export function ResourceCard ({course, description, link, title, type, contributor}) {
     const [hover, setHover] = useState(false);
 
     return (
         <div className="resourceCard" >
-        <Panel header="Proof By Contradiction" bordered onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} shaded={hover} style={{cursor:'pointer'}}>
-            <p>Watch the first 30 minutes of the video, it is very informative</p>
+        <Panel header={title} bordered onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} shaded={hover} style={{cursor:'pointer'}}>
+            <p>{description}</p>
             <br></br>
             <div className="bottomInfo">
-                <Tag>Video</Tag>
-                <p>By: Lea Emerlyn</p>
+                <Tag>{type}</Tag>
+                <p>By: {contributor}</p>
             </div>
         </Panel>
         </div>
