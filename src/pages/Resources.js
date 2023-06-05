@@ -9,8 +9,6 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 const courseData = ["591", "592", "593", "594", "595", "596", "555"].map(item =>({label: item, value: item}));
 const moduleData = ["General", "Module 1", "Module 2", "Module 3"].map(item =>({label: item, value: item}));
 
-
-
 export function Resources() {
     const [selectedCourse, setSelectedCourse] = useState([]);
     const [courseList, setCourseList] = useState([]);
@@ -24,14 +22,15 @@ export function Resources() {
                 const data = await getDocs(coursesCollectionRef);
                 const filteredData = data.docs.map((doc) => ({...doc.data(), id: doc.id}));
                 console.log(filteredData);
+                // filteredData.map((resource) => {if (selectedCourse.includes(resource.Course)){setCourseList([...courseList, resource])} })
+                // console.log(selectedCourse)
                 setCourseList(filteredData);
             } catch (err){
                 console.log(err);
             }
         };
         getCourseList();
-    }, []);
-
+    }, [selectedCourse]);
 
 
     return(
