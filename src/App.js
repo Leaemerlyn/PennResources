@@ -7,7 +7,7 @@ import { Contribute } from './pages/Contribute';
 import { MyContributions } from './pages/MyContributions';
 import { Contact } from './pages/Contact';
 import { signInWithPopup, signOut} from "firebase/auth"
-import { auth, googleProvider} from "./config/firebase"
+import { auth, googleProvider } from "./config/firebase"
 import NavItem from 'rsuite/esm/Nav/NavItem';
 
 
