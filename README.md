@@ -1,3 +1,8 @@
+# Welcome to Penn Resources
+This tool is meant for MCIT Online students who are looking for supplemental resources for course material. In the site, users can select a course and a module within that course, and it will display all of the appropriate resources that other students have posted. Users can also see their own contributions on a dedicated page.
+We created this site for the MOSA Summer 2023 Hackathon. It was made using React and Node.js for the frontend, and Firebase for the backend.
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
