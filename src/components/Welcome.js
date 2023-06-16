@@ -5,7 +5,7 @@ import './styles.css';
 import { RadioTile, RadioTileGroup } from 'rsuite';
 import { Icon } from '@rsuite/icons';
 import SearchIcon from '@rsuite/icons/Search';
-import { VscRepo } from 'react-icons/vsc';
+import DocPassIcon from '@rsuite/icons/DocPass';
 import SendIcon from '@rsuite/icons/Send';
 
 export function Welcome () {
