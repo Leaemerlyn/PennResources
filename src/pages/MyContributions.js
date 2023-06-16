@@ -3,7 +3,7 @@ import "./MyContributions.css"
 import { ContributionCard } from '../components/ContributionCard';
 import { useState, useEffect } from 'react';
 import { Contribute } from './Contribute';
-import { collection, query, where, getDocs } from 'firebase/firestore';
+import { collection, query, where, getDocs, QuerySnapshot } from 'firebase/firestore';
 import { database, auth } from "../config/firebase";
 import { queryUIDSnapshot } from '../App';
 
@@ -27,13 +27,18 @@ export function MyContributions () {
             const resourcesCollection = collection(database, "resources");
             const queryOnUID = query(resourcesCollection, where("uid", "==", currentUID));
             const queryUIDSnapshot = await getDocs(queryOnUID);
-    
+
+            // use the docs method to get the array of documents objects from the snapshot
+            // use the map method to add each document object's fields to the array userContributions
             const userContributions = queryUIDSnapshot.docs.map((contributionDoc) => ({
                 ...contributionDoc.data(), id: contributionDoc.id
             }));
-    
+            
+            // save the array of user contributions in the state above
             setContributionsList(userContributions);
         };
+
+        // call on the function to get the user contributions
         getContributions();
     })
 
@@ -41,9 +46,6 @@ export function MyContributions () {
 
     return(
         <div className="contributionCardContainer">  
-            {/* <div>
-                <Button onClick={getContributions}></Button>
-            </div> */}
             {addingResource ? <></> : <h4>Here are all your contributions to Penn Resources</h4>}
             {addingResource ? <Contribute setAddingResource={setAddingResource}/> : 
             <div>
