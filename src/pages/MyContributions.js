@@ -1,11 +1,10 @@
-import { Button, CheckPicker, Input, InputPicker } from 'rsuite';
+import { Button } from 'rsuite';
 import "./MyContributions.css"
 import { ContributionCard } from '../components/ContributionCard';
 import { useState, useEffect } from 'react';
 import { Contribute } from './Contribute';
 import { collection, query, where, getDocs, QuerySnapshot } from 'firebase/firestore';
 import { database, auth } from "../config/firebase";
-import { queryUIDSnapshot } from '../App';
 
 const course = ["591", "592"].map(item => ({ label: item, value: item }));
 const module = ["Module 1", "Module 2"].map(item => ({ label: item, value: item }));
@@ -40,9 +39,11 @@ export function MyContributions () {
 
         // call on the function to get the user contributions
         getContributions();
-    })
+
+    }, [])
 
     const [addingResource, setAddingResource] = useState(false);
+    const [showCard, setShowCard] = useState(true);
 
     return(
         <div className="contributionCardContainer">  
@@ -50,7 +51,7 @@ export function MyContributions () {
             {addingResource ? <Contribute setAddingResource={setAddingResource}/> : 
             <div>
                 {contributionsList.map((contribution) => (
-                <ContributionCard description = {contribution.Description} title={contribution.Title} type={contribution.Type}/>
+                <ContributionCard showCard = {showCard} setShowCard = {setShowCard} course = {contribution.Course} module = {contribution.Module} link = {contribution.Link} description = {contribution.Description} title={contribution.Title} type={contribution.Type} docID={contribution.id}/>
             ))}
             </div>
             }
