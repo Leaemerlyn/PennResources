@@ -6,8 +6,8 @@ import { Contribute } from './Contribute';
 import { collection, query, where, getDocs, QuerySnapshot } from 'firebase/firestore';
 import { database, auth } from "../config/firebase";
 
-const course = ["591", "592"].map(item => ({ label: item, value: item }));
-const module = ["Module 1", "Module 2"].map(item => ({ label: item, value: item }));
+const course = ["591", "592", "593", "594", "595", "596", "515", "521", "530", "545", "547", "549", "550", "551", "553", "555", "581", "582", "575", "541", "542", "546"].map(item => ({ label: item, value: item }));
+const module = ["Module 1", "Module 2", "Module 3", "Module 4", "Module 5", "Module 6", "Module 7", "Module 8", "Module 9", "Module 10", "Module 11", "Module 12", "Module 13"].map(item => ({ label: item, value: item }));
 
 const resourceType = ["Video", "Reading", "Practice Problem"].map(item =>({label: item, value: item})); 
 
@@ -51,7 +51,8 @@ export function MyContributions () {
             {addingResource ? <Contribute setAddingResource={setAddingResource}/> : 
             <div>
                 {contributionsList.map((contribution) => (
-                <ContributionCard showCard = {showCard} setShowCard = {setShowCard} course = {contribution.Course} module = {contribution.Module} link = {contribution.Link} description = {contribution.Description} title={contribution.Title} type={contribution.Type} docID={contribution.id}/>
+                <ContributionCard showCard = {showCard} setShowCard = {setShowCard} course = {contribution.Course} module = {contribution.Module} link = {contribution.Link} description = {contribution.Description} title={contribution.Title} 
+                anyonymity={contribution.Anyonymity} type={contribution.Type} docID={contribution.id}/>
             ))}
             </div>
             }
