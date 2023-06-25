@@ -52,7 +52,7 @@ export function MyContributions () {
             <div>
                 {contributionsList.map((contribution) => (
                 <ContributionCard showCard = {showCard} setShowCard = {setShowCard} course = {contribution.Course} module = {contribution.Module} link = {contribution.Link} description = {contribution.Description} title={contribution.Title} 
-                anyonymity={contribution.Anyonymity} type={contribution.Type} docID={contribution.id}/>
+                anonymity={contribution.Anonymity} type={contribution.Type} docID={contribution.id}/>
             ))}
             </div>
             }

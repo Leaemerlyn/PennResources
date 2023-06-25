@@ -4,7 +4,7 @@ import { useState } from "react";
 import EditIcon from '@rsuite/icons/Edit'
 import { Edit } from "../pages/Edit";
 
-export function ContributionCard ({showCard, course, module, link, description, title, type, anyonymity, docID}) {
+export function ContributionCard ({showCard, course, module, link, description, title, type, anonymity, docID}) {
 
     const [editingResource, setEditingResource] = useState(false);
 
@@ -23,7 +23,7 @@ export function ContributionCard ({showCard, course, module, link, description, 
         : <></>}
 
         {editingResource ? <Edit setEditingResource={setEditingResource} type = {type} title = {title} course={course} module={module} link={link} 
-            description={description} anyonymity={anyonymity} docID={docID}/> : <></>}
+            description={description} anonymity={anonymity} docID={docID}/> : <></>}
 
         </div>
     )
