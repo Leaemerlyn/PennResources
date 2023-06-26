@@ -9,13 +9,14 @@ import { useState, forwardRef } from 'react';
 const descriptionBox = forwardRef((props, ref) => <Input {...props} as="textarea" ref={ref}/>);
 
 // this sets up the rule for each field
-// the only rule is that each field cannot be blank
-// TODO add a rule to make the URL start with https:// (probably need regex)
+// the rules are each field cannot be blank and link must be a valid URL
 const formRequirements = Schema.Model({
     title: Schema.Types.StringType().isRequired("Required"),
     course: Schema.Types.StringType().isRequired("Required"),
     module: Schema.Types.StringType().isRequired("Required"),
-    link: Schema.Types.StringType().isRequired("Required"),
+    link: Schema.Types.StringType()
+        .isRequired("Required")
+        .isURL("Enter valid URL address"),
     resourceType: Schema.Types.ArrayType().isRequired("Required"),
     description: Schema.Types.StringType().isRequired("Required"),
     anonymity: Schema.Types.StringType().isRequired("Required"),
