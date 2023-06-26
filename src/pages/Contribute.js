@@ -16,7 +16,7 @@ const formRequirements = Schema.Model({
     module: Schema.Types.StringType().isRequired("Required"),
     link: Schema.Types.StringType()
         .isRequired("Required")
-        .isURL("Enter valid URL address"),
+        .pattern(new RegExp("https://[\\S]*"), "Link must start with https://"),
     resourceType: Schema.Types.ArrayType().isRequired("Required"),
     description: Schema.Types.StringType().isRequired("Required"),
     anonymity: Schema.Types.StringType().isRequired("Required"),
@@ -89,7 +89,7 @@ export function Contribute ({setAddingResource}) {
                 </Form.Group>
 
                 <Form.Group controlId="link">
-                    <Form.Control name="link" placeholder="Link (link must start with https://)" onChange={setURL}/>
+                    <Form.Control name="link" placeholder="Link" onChange={setURL}/>
                 </Form.Group>
 
                 <Form.Group controlId="description">
