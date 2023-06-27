@@ -14,7 +14,7 @@ const Card1 = props => (
 
 const Card2 = props => (
   <Panel {...props} bordered header="Abdullah Amer">
-    <p>abamer@seas.upenn.edu</p>
+    <p>abdamer@seas.upenn.edu</p>
   </Panel>
 );
 

@@ -45,10 +45,21 @@ export function MyContributions () {
     const [addingResource, setAddingResource] = useState(false);
     const [showCard, setShowCard] = useState(true);
 
+
     return(
-        <div className="contributionCardContainer">  
-            {addingResource ? <></> : <h4>Here are all your contributions to Penn Resources</h4>}
-            {addingResource ? <Contribute setAddingResource={setAddingResource}/> : 
+        <div className="contributionCardContainer">
+          {addingResource ? (
+            <></>
+          ) : (
+            <h4>
+              {contributionsList.length === 0
+                ? "No resources found. Click below to start adding resources."
+                : "Here are all your contributions to Penn Resources"}
+            </h4>
+          )}
+          {addingResource ? (
+            <Contribute setAddingResource={setAddingResource} />
+          ) :  
             <div>
                 {contributionsList.map((contribution) => (
                 <ContributionCard showCard = {showCard} setShowCard = {setShowCard} course = {contribution.Course} module = {contribution.Module} link = {contribution.Link} description = {contribution.Description} title={contribution.Title} 
