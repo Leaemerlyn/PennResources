@@ -31,6 +31,7 @@ export function Resources() {
 
           const data = await getDocs(q);
           const filteredData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+          
           setCourseList(filteredData);
         } else {
           setCourseList([]);
@@ -40,7 +41,12 @@ export function Resources() {
       }
     };
 
+
+    
     getCourseList();
+    console.log(selectedCourse);
+
+
   }, [selectedCourse, selectedModule]);
 
   return (
@@ -63,3 +69,4 @@ export function Resources() {
     </div>
   );
 }
+
