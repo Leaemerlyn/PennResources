@@ -1,47 +1,36 @@
-import { Panel, Placeholder, Row, Col } from 'rsuite';
-
-const Card = props => (
-  <Panel {...props} bordered header="Lea Emerlyn">
-    <p>leaemerlyn@seas.upenn.edu</p>
-  </Panel>
-);
-
-const Card1 = props => (
-  <Panel {...props} bordered header="Ben Swanson">
-    <p>bswan1@seas.upenn.edu</p>
-  </Panel>
-);
-
-const Card2 = props => (
-  <Panel {...props} bordered header="Abdullah Amer">
-    <p>abdamer@seas.upenn.edu</p>
-  </Panel>
-);
-
-const Card3 = props => (
-  <Panel {...props} bordered header="Leven Cai">
-    <p>levencai@seas.upenn.edu</p>
-  </Panel>
-);
-
+import React from 'react';
+import { Panel, PanelGroup, Placeholder } from 'rsuite';
 
 export function Contact () {
     return (
         <>
-            <Row>
-              <Col md={6} sm={12}>
-                <Card />
-              </Col>
-              <Col md={6} sm={12}>
-                <Card1 />
-              </Col>
-              <Col md={6} sm={12}>
-                <Card2 />
-              </Col>
-              <Col md={6} sm={12}>
-                <Card3 />
-              </Col>
-            </Row>
+          <h3>
+          Contact the Team 
+          </h3>
+          <PanelGroup>
+            <Panel header="Lea Emerlyn">
+              <p>
+                lemerlyn@seas.upenn.edu
+              </p>
+            </Panel>
+            <Panel header="Leven Cai">
+              <p>
+                levencai@seas.upenn.edu
+              </p>
+            </Panel>
+            <Panel header="Abdullah Amer">
+                <p>
+                  abdamer@seas.upenn.edu
+                </p> 
+            </Panel>
+            <Panel header="Ben Swanson">
+              <p>
+              I joined MCIT in Fall 2022 after studying economics in undergrad, and I hope to transition from 
+              my work in consulting to softwarre engeineering. I'm originally from Philly and I now  
+              live in NYC. Feel free to reach out at bswan1@seas.upenn.edu, and thanks for using Penn Resources!
+              </p>
+            </Panel>
+          </PanelGroup>
         </>
     )
 }
