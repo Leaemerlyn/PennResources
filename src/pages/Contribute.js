@@ -22,7 +22,7 @@ const formRequirements = Schema.Model({
     anonymity: Schema.Types.StringType().isRequired("Required"),
 })
 
-export function Contribute ({setAddingResource}) {
+export function Contribute ({setAddingResource, getContributions}) {
     const courseList = ["591", "592", "593", "594", "595", "596", "515", "521", "530", "545", "547", "549", "550", "551", "553", "555", "581", "582", "575", "541", "542", "546"].map(item => ({ label: item, value: item }));
     const moduleList = ["Module 1", "Module 2", "Module 3", "Module 4", "Module 5", "Module 6", "Module 7", "Module 8", "Module 9", "Module 10", "Module 11", "Module 12", "Module 13"].map(item => ({ label: item, value: item }));
     const resourceTypeList = ["Video", "Reading", "Practice Problem"].map(item =>({label: item, value: item}));
@@ -59,8 +59,11 @@ export function Contribute ({setAddingResource}) {
             uid: currentUser.uid,
             Anonymity: anonymity
             })
+
+            getContributions();
         }
     };
+
 
 
     return(

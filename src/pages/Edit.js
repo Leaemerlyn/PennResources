@@ -22,7 +22,7 @@ const formRequirements = Schema.Model({
     anonymity: Schema.Types.StringType().isRequired("Required"),
 })
 
-export function Edit ({setEditingResource, type, title, course, module, link, description, anonymity, docID}) {
+export function Edit ({setEditingResource, getContributions, type, title, course, module, link, description, anonymity, docID}) {
 
     const courseList = ["591", "592", "593", "594", "595", "596", "515", "521", "530", "545", "547", "549", "550", "551", "553", "555", "581", "582", "575", "541", "542", "546"].map(item => ({ label: item, value: item }));
     const moduleList = ["Module 1", "Module 2", "Module 3", "Module 4", "Module 5", "Module 6", "Module 7", "Module 8", "Module 9", "Module 10", "Module 11", "Module 12", "Module 13"].map(item => ({ label: item, value: item }));
@@ -57,6 +57,8 @@ export function Edit ({setEditingResource, type, title, course, module, link, de
             Title: newTitle,
             Anonymity: newAnonymity
         })
+
+        getContributions();
         }
     }
 
@@ -65,8 +67,9 @@ export function Edit ({setEditingResource, type, title, course, module, link, de
             <p>Deleting a resource is permanent. Please confirm or cancel.</p>
             <Button color = 'red' appearance = 'primary' onClick={
                 async() => {
-                    await deleteDoc(doc(database, "resources", docID)); 
+                    await deleteDoc(doc(database, "resources", docID));
                     toaster.clear();
+                    getContributions();
                 }
                 }
             > Confirm </Button>

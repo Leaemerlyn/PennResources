@@ -8,12 +8,47 @@ import { Contribute } from './Contribute';
 
 const courseOptions = ["591", "592", "593", "594", "595", "596", "515", "521", "530", "545", "547", "549", "550", "551", "553", "555", "581", "582", "575", "541", "542", "546"].map(item => ({ label: item, value: item }));
 const moduleOptions = ["Module 1", "Module 2", "Module 3", "Module 4", "Module 5", "Module 6", "Module 7", "Module 8", "Module 9", "Module 10", "Module 11", "Module 12", "Module 13"].map(item => ({ label: item, value: item }));
-const resourceTypeOptions = ["Video", "Reading", "Practice Problem"].map(item => ({ label: item, value: item }));
 
 export function MyContributions() {
   const [contributionsList, setContributionsList] = useState([]);
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [selectedModule, setSelectedModule] = useState(null);
+
+  const getContributions = async () => {
+    const currentUser = auth.currentUser;
+    const currentUID = currentUser.uid;
+    const resourcesCollection = collection(database, "resources");
+    let queryOnUID = query(resourcesCollection, where("uid", "==", currentUID));
+
+    if (selectedCourse && selectedModule) {
+      queryOnUID = query(
+        resourcesCollection,
+        where("uid", "==", currentUID),
+        where("Course", "==", selectedCourse),
+        where("Module", "==", selectedModule)
+      );
+    } else if (selectedCourse) {
+      queryOnUID = query(
+        resourcesCollection,
+        where("uid", "==", currentUID),
+        where("Course", "==", selectedCourse)
+      );
+    } else if (selectedModule) {
+      queryOnUID = query(
+        resourcesCollection,
+        where("uid", "==", currentUID),
+        where("Module", "==", selectedModule)
+      );
+    }
+
+    const queryUIDSnapshot = await getDocs(queryOnUID);
+    const userContributions = queryUIDSnapshot.docs.map((contributionDoc) => ({
+      ...contributionDoc.data(),
+      id: contributionDoc.id
+    }));
+
+    setContributionsList(userContributions);
+  };
 
   useEffect(() => {
     const getContributions = async () => {
@@ -21,7 +56,7 @@ export function MyContributions() {
       const currentUID = currentUser.uid;
       const resourcesCollection = collection(database, "resources");
       let queryOnUID = query(resourcesCollection, where("uid", "==", currentUID));
-
+  
       if (selectedCourse && selectedModule) {
         queryOnUID = query(
           resourcesCollection,
@@ -42,21 +77,20 @@ export function MyContributions() {
           where("Module", "==", selectedModule)
         );
       }
-
+  
       const queryUIDSnapshot = await getDocs(queryOnUID);
       const userContributions = queryUIDSnapshot.docs.map((contributionDoc) => ({
         ...contributionDoc.data(),
         id: contributionDoc.id
       }));
-
+  
       setContributionsList(userContributions);
-    };
+    };  
 
     getContributions();
   }, [selectedCourse, selectedModule]);
 
   const [addingResource, setAddingResource] = useState(false);
-  const [showCard, setShowCard] = useState(true);
 
   const handleCourseFilter = (value) => {
     setSelectedCourse(value);
@@ -78,7 +112,7 @@ export function MyContributions() {
         </h4>
       )}
       {addingResource ? (
-        <Contribute setAddingResource={setAddingResource} />
+        <Contribute setAddingResource={setAddingResource} getContributions={getContributions} />
       ) : (
         <div>
           <div className="filterContainer">
@@ -100,8 +134,7 @@ export function MyContributions() {
           {contributionsList.map((contribution) => (
             <ContributionCard
               key={contribution.id}
-              showCard={showCard}
-              setShowCard={setShowCard}
+              getContributions={getContributions}
               course={contribution.Course}
               module={contribution.Module}
               link={contribution.Link}
@@ -121,8 +154,7 @@ export function MyContributions() {
           appearance="ghost"
           className="addResource"
           onClick={() => setAddingResource(true)}
-        >
-          Add Resources
+        > Add Resources
         </Button>
       )}
     </div>
