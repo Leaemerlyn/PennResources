@@ -1,4 +1,4 @@
-import { Button, ButtonToolbar, CheckPicker, Input, InputPicker, Form, Schema } from 'rsuite';
+import { Button, ButtonToolbar, CheckPicker, Input, InputPicker, Form, Schema, Notification, useToaster } from 'rsuite';
 import "./Contribute.css"
 import { database } from '../config/firebase';
 import { doc, updateDoc, deleteDoc } from 'firebase/firestore';
@@ -29,6 +29,8 @@ export function Edit ({setEditingResource, type, title, course, module, link, de
     const resourceTypeList = ["Video", "Reading", "Practice Problem"].map(item =>({label: item, value: item}));
     const yesOrNo = ["Yes", "No"].map(item =>({label: item, value: item}));
 
+    const toaster = useToaster();
+
     // initialize states to store the user inputs
     // the set functions are used as the onChange functions in the components below
     const [newCourseSelection, setNewCourseSelection] = useState("");
@@ -58,9 +60,23 @@ export function Edit ({setEditingResource, type, title, course, module, link, de
         }
     }
 
-    const deleteContribution = async() => {
-        await deleteDoc(doc(database, "resources", docID));
-    }
+    const deleteConfirmation = (
+        <Notification type={"warning"} header={"warning"}>
+            <p>Deleting a resource is permanent. Please confirm or cancel.</p>
+            <Button color = 'red' appearance = 'primary' onClick={
+                async() => {
+                    await deleteDoc(doc(database, "resources", docID)); 
+                    toaster.clear();
+                }
+                }
+            > Confirm </Button>
+            <Button onClick={() => toaster.clear()}>Cancel</Button>
+        </Notification>
+    );
+
+    const showDeleteConfirmation = () => {
+        toaster.push(deleteConfirmation, {duration: 0});
+    };
 
     return(
         <div className="contributeContainer">
@@ -97,7 +113,7 @@ export function Edit ({setEditingResource, type, title, course, module, link, de
                 <ButtonToolbar>
                     <Button onClick={() => setEditingResource(false)}>Cancel</Button>
                     <Button appearance='primary' type='submit' onClick={updateContribution}>Submit</Button>
-                    <Button color = 'red' appearance = 'primary' onClick={deleteContribution}>Delete (Permanent)</Button>
+                    <Button color = 'red' appearance = 'primary' onClick={showDeleteConfirmation}>Delete (Permanent)</Button>
                 </ButtonToolbar>
             </Form>
         </div>
