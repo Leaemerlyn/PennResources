@@ -45,7 +45,7 @@ export function Contribute ({setAddingResource}) {
     const saveEntry = async() => {
         
         // only adds the document if everything is filled out
-        if (courseSelection !== "" && moduleSelection !== "" && URL !== "" && 
+        if (courseSelection !== "" && moduleSelection !== "" && URL.startsWith("https://") && 
         type !== "" && description !== "" && title !== "" && anonymity !== "") {
             addDoc(collection(database, "resources"), {
             Contributor: currentUser.displayName,

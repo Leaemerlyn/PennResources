@@ -44,7 +44,7 @@ export function Edit ({setEditingResource, type, title, course, module, link, de
     const updateContribution = async() => {
         
         // only updates if all fields are filled
-        if (newCourseSelection !== "" && newModuleSelection !== "" && newURL !== "" && newType !== "" &&
+        if (newCourseSelection !== "" && newModuleSelection !== "" && newURL.startsWith("https://") && newType !== "" &&
         newDescription !== "" && newTitle !== "" && newAnonymity !== "") {
         await updateDoc(currContribution, {
             Course: newCourseSelection,
