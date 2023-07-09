@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { CheckPicker } from 'rsuite';
+import { CheckPicker, useToaster } from 'rsuite';
 import { ResourceCard } from '../components/ResourceCard';
 import { Welcome } from '../components/Welcome';
 import { database } from '../config/firebase';
@@ -14,6 +14,9 @@ export function Resources() {
   const [selectedModule, setSelectedModule] = useState([]);
   const [courseList, setCourseList] = useState([]);
   const coursesCollectionRef = collection(database, "resources");
+
+  const toaster = useToaster();
+  toaster.clear();
 
   useEffect(() => {
     const getCourseList = async () => {
@@ -41,11 +44,7 @@ export function Resources() {
       }
     };
 
-
-    
     getCourseList();
-    console.log(selectedCourse);
-
 
   }, [selectedCourse, selectedModule]);
 

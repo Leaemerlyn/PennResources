@@ -1,7 +1,10 @@
 import React from 'react';
-import { Panel, PanelGroup, Placeholder } from 'rsuite';
+import { Panel, PanelGroup, useToaster } from 'rsuite';
 
 export function Contact () {
+    const toaster = useToaster();
+    toaster.clear();
+
     return (
         <>
           <h3>

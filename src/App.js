@@ -53,7 +53,7 @@ function App() {
     </Navbar>
 
     {page === "Resources" ? <Resources/>: <div></div>}
-    {page === "My-Contributions" ? <MyContributions/>: <div></div>}
+    {page === "My-Contributions" ? <MyContributions loggedIn={loggedIn}/>: <div></div>}
     {page === "Contact" ? <Contact/> : <div></div>}
     </>
     
