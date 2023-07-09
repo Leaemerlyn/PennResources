@@ -60,6 +60,8 @@ export function Edit ({setEditingResource, getContributions, type, title, course
 
         getContributions();
         }
+
+        setEditingResource(false);
     }
 
     const deleteConfirmation = (
