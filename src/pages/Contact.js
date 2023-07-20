@@ -20,6 +20,11 @@ export function Contact () {
               <p>
                 levencai@seas.upenn.edu
               </p>
+              <p>
+                I joined MCIT in Spring 2023 to transition from teaching to tech. I'm still exploring which field of computer programming to 
+                pursue, but I'm leaning towards data science due to my background in biological research. I live in NYC and plan to stay here for 
+                as long as I live. Gotta love the dirty subway, the city parks, and the food. 
+              </p>
             </Panel>
             <Panel header="Abdullah Amer">
                 <p>

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { CheckPicker, useToaster } from 'rsuite';
 import { ResourceCard } from '../components/ResourceCard';
-import { Welcome } from '../components/Welcome';
+import { Welcome } from '../pages/Welcome';
 import { database } from '../config/firebase';
 import { collection, query, where, getDocs } from "firebase/firestore";
 import "./Resources.css";

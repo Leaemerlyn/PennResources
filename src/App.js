@@ -1,6 +1,6 @@
 import './App.css';
 import "rsuite/dist/rsuite.min.css";
-import { Navbar, Nav, Button} from 'rsuite';
+import { Navbar, Nav, Notification, useToaster } from 'rsuite';
 import { useState } from 'react';
 import { Resources } from './pages/Resources';
 import { Contribute } from './pages/Contribute';
@@ -9,11 +9,20 @@ import { Contact } from './pages/Contact';
 import { signInWithPopup, signOut} from "firebase/auth"
 import { auth, googleProvider } from "./config/firebase"
 import NavItem from 'rsuite/esm/Nav/NavItem';
+import { Welcome } from './pages/Welcome';
 
 
 function App() {
   const [page, setPage] = useState("Resources");
   const [loggedIn, setLoggedIn] = useState(false);
+
+  const toaster = useToaster();
+
+  const signOutSuccess = (
+    <Notification type={"success"} header={"Success"}>
+        <p>You have successfully logged out.</p>
+    </Notification>
+);
 
   const signInWithGoogle = async () => {
     try {
@@ -24,10 +33,13 @@ function App() {
     }
   }
 
-  const signOut = async () => {
+  const signOutOfAccount = async () => {
     try {
       await signOut(auth);
       setLoggedIn(false);
+      setPage("Resources");
+      toaster.push(signOutSuccess, {duration: 3000});
+      toaster.clear();
     } catch (err){
       console.log(err);
     }
@@ -45,7 +57,7 @@ function App() {
         {loggedIn ?
         <Nav.Menu title={auth?.currentUser?.displayName}>
           <Nav.Item onClick={() => setPage("My-Contributions")}>My Contributions</Nav.Item>
-          <Nav.Item onClick={signOut}>Logout</Nav.Item>
+          <Nav.Item onClick={signOutOfAccount}>Logout</Nav.Item>
         </Nav.Menu> :
         <Nav.Item onClick={signInWithGoogle}>Login</Nav.Item>
         }

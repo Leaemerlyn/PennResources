@@ -65,7 +65,7 @@ export function Edit ({setEditingResource, getContributions, type, title, course
     }
 
     const deleteConfirmation = (
-        <Notification type={"warning"} header={"warning"}>
+        <Notification type={"warning"} header={"Warning"}>
             <p>Deleting a resource is permanent. Please confirm or cancel.</p>
             <Button color = 'red' appearance = 'primary' onClick={
                 async() => {
