@@ -28,14 +28,6 @@ export function Welcome () {
             <p>
             Be aware of what you’re posting and reading and make sure that it doesn’t violate any MCIT academic policies. Thank you for contributing!
             </p>
-          // <Link
-          //       href="https://catalog.upenn.edu/pennbook/code-of-academic-integrity/"
-          //       onClick={() => {
-          //           alert("Redirecting to upenn.edu");
-          //       }}
-          //   >
-          //       Penn Academic Integrity Policies
-          //   </Link>
           </Panel>
         </PanelGroup>
         </>
