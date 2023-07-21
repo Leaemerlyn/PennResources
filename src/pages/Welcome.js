@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import Link from "react-dom";
 import './Welcome.css'
 import React from 'react';
 // import './styles.css';
