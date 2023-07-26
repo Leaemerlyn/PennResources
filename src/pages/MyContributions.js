@@ -11,89 +11,51 @@ const moduleOptions = ["Module 1", "Module 2", "Module 3", "Module 4", "Module 5
 
 export function MyContributions({loggedIn}) {
   const [contributionsList, setContributionsList] = useState([]);
-  const [selectedCourse, setSelectedCourse] = useState(null);
+  const [selectedCourse, setSelectedCourse] = useState([]);
   const [selectedModule, setSelectedModule] = useState(null);
 
   const getContributions = async () => {
     const currentUser = auth.currentUser;
     const currentUID = currentUser.uid;
     const resourcesCollection = collection(database, "resources");
-    let queryOnUID = query(resourcesCollection, where("uid", "==", currentUID));
 
-    if (selectedCourse && selectedModule) {
-      queryOnUID = query(
+    let contributions = [];
+    for (let i = 0; i < selectedCourse.length; i++) {
+      let courseQuery = query(
         resourcesCollection,
         where("uid", "==", currentUID),
-        where("Course", "==", selectedCourse),
-        where("Module", "==", selectedModule)
+        where("Course", "==", selectedCourse[i])
       );
-    } else if (selectedCourse) {
-      queryOnUID = query(
-        resourcesCollection,
-        where("uid", "==", currentUID),
-        where("Course", "==", selectedCourse)
-      );
-    } else if (selectedModule) {
-      queryOnUID = query(
-        resourcesCollection,
-        where("uid", "==", currentUID),
-        where("Module", "==", selectedModule)
-      );
-    }
 
-    const queryUIDSnapshot = await getDocs(queryOnUID);
-    const userContributions = queryUIDSnapshot.docs.map((contributionDoc) => ({
-      ...contributionDoc.data(),
-      id: contributionDoc.id
-    }));
-
-    setContributionsList(userContributions);
-  };
-
-  useEffect(() => {
-    const getContributions = async () => {
-      const currentUser = auth.currentUser;
-      const currentUID = currentUser.uid;
-      const resourcesCollection = collection(database, "resources");
-      let queryOnUID = query(resourcesCollection, where("uid", "==", currentUID));
-  
-      if (selectedCourse && selectedModule) {
-        queryOnUID = query(
+      if (selectedModule) {
+        courseQuery = query(
           resourcesCollection,
           where("uid", "==", currentUID),
-          where("Course", "==", selectedCourse),
-          where("Module", "==", selectedModule)
-        );
-      } else if (selectedCourse) {
-        queryOnUID = query(
-          resourcesCollection,
-          where("uid", "==", currentUID),
-          where("Course", "==", selectedCourse)
-        );
-      } else if (selectedModule) {
-        queryOnUID = query(
-          resourcesCollection,
-          where("uid", "==", currentUID),
+          where("Course", "==", selectedCourse[i]),
           where("Module", "==", selectedModule)
         );
       }
-  
-      const queryUIDSnapshot = await getDocs(queryOnUID);
-      const userContributions = queryUIDSnapshot.docs.map((contributionDoc) => ({
+
+      const querySnapshot = await getDocs(courseQuery);
+      const courseContributions = querySnapshot.docs.map((contributionDoc) => ({
         ...contributionDoc.data(),
         id: contributionDoc.id
       }));
-  
-      setContributionsList(userContributions);
-    };  
 
+      contributions = [...contributions, ...courseContributions];
+    }
+
+    setContributionsList(contributions);
+  };
+
+  useEffect(() => {
     getContributions();
   }, [selectedCourse, selectedModule]);
 
   const [addingResource, setAddingResource] = useState(false);
 
-  const handleCourseFilter = (value) => {
-    setSelectedCourse(value);
+  const handleCourseFilter = (values) => {
+    setSelectedCourse(values);
   };
 
   const handleModuleFilter = (value) => {
@@ -123,6 +85,7 @@ export function MyContributions({loggedIn}) {
                 onChange={handleCourseFilter}
                 placeholder="Select"
                 className="filterInput"
+                multi
               />
               <SelectPicker
                 data={moduleOptions}
