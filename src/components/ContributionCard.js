@@ -2,19 +2,27 @@ import { Button, Panel, Placeholder, Tag } from "rsuite";
 import "./ResourceCard.css"
 import { useState } from "react";
 import EditIcon from '@rsuite/icons/Edit'
+import { Edit } from "../pages/Edit";
 
-export function ContributionCard () {
+export function ContributionCard ({getContributions, course, module, link, description, title, type, anonymity, docID}) {
+
+    const [editingResource, setEditingResource] = useState(false);
 
     return (
         <div className="resourceCard" >
-        <Panel header="Proof By Contradiction" bordered>
-            <p>Watch the first 30 minutes of the video, it is very informative</p>
+        {<Panel header={title} bordered>
+            <p>Description: {description}</p>
+            <p>Link: {link}</p>
             <br></br>
             <div className="bottomInfo">
-                <Tag>Video</Tag>
-                <EditIcon style={{ fontSize: "1.5em", cursor:'pointer'}} />
+                <Tag>{type}</Tag>
+                <EditIcon onClick={() => {setEditingResource(!editingResource)}} style={{ fontSize: "1.5em", cursor:'pointer'}} />
             </div>
-        </Panel>
+        </Panel>}
+
+        {editingResource ? <Edit setEditingResource={setEditingResource} getContributions={getContributions} type = {type} title = {title} course={course} module={module} link={link} 
+            description={description} anonymity={anonymity} docID={docID}/> : <></>}
+
         </div>
     )
 }
