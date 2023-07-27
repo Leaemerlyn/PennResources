@@ -42,13 +42,13 @@ export function Contribute ({setAddingResource, getContributions}) {
     var currentUser = auth.currentUser;
 
     // adds a document to the database using the states saved above
+    // Edited to allow for anonymous submission
     const saveEntry = async() => {
-        
         // only adds the document if everything is filled out
         if (courseSelection !== "" && moduleSelection !== "" && URL.startsWith("https://") && 
         type !== "" && description !== "" && title !== "" && anonymity !== "") {
             addDoc(collection(database, "resources"), {
-            Contributor: currentUser.displayName,
+            Contributor: anonymity === "No" ? "Anonymous" : currentUser.displayName,
             Course: courseSelection,
             Description: description,
             Title: title,
@@ -59,11 +59,12 @@ export function Contribute ({setAddingResource, getContributions}) {
             uid: currentUser.uid,
             Anonymity: anonymity
             })
-
+    
             getContributions();
         }
         setAddingResource(false);
     };
+    
 
     return(
         <div className="contributeContainer">
