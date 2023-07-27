@@ -16,7 +16,7 @@ export function ContributionCard ({getContributions, course, module, link, descr
             <br></br>
             <div className="bottomInfo">
                 <Tag>{type}</Tag>
-                <EditIcon onClick={() => {setEditingResource(true)}} style={{ fontSize: "1.5em", cursor:'pointer'}} />
+                <EditIcon onClick={() => {setEditingResource(!editingResource)}} style={{ fontSize: "1.5em", cursor:'pointer'}} />
             </div>
         </Panel>}
 

@@ -13,6 +13,7 @@ export function MyContributions({loggedIn}) {
   const [contributionsList, setContributionsList] = useState([]);
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [selectedModule, setSelectedModule] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
 
   const getContributions = async () => {
     const currentUser = auth.currentUser;
@@ -102,7 +103,7 @@ export function MyContributions({loggedIn}) {
 
   if (loggedIn) {
     return (
-      <div className="contributionCardContainer">
+      <div className="myContributionContainer">
         {addingResource ? (
           <></>
         ) : (
@@ -132,20 +133,22 @@ export function MyContributions({loggedIn}) {
                 className="filterInput"
               />
             </div>
-            {contributionsList.map((contribution) => (
-              <ContributionCard
-                key={contribution.id}
-                getContributions={getContributions}
-                course={contribution.Course}
-                module={contribution.Module}
-                link={contribution.Link}
-                description={contribution.Description}
-                title={contribution.Title}
-                anonymity={contribution.Anonymity}
-                type={contribution.Type}
-                docID={contribution.id}
-              />
-            ))}
+            <div id="contributionListContainer"> 
+              {contributionsList.map((contribution) => (
+                <ContributionCard
+                  key={contribution.id}
+                  getContributions={getContributions}
+                  course={contribution.Course}
+                  module={contribution.Module}
+                  link={contribution.Link}
+                  description={contribution.Description}
+                  title={contribution.Title}
+                  anonymity={contribution.Anonymity}
+                  type={contribution.Type}
+                  docID={contribution.id}
+                />
+              ))}
+            </div>
           </div>
         )}
         {addingResource ? (

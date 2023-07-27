@@ -8,7 +8,7 @@ import { Panel, PanelGroup } from 'rsuite';
 export function Welcome () {
     return (
         <>
-          <h3>
+          <h3 className="title">
           Welcome to Penn Resources 
           </h3>
             <PanelGroup>

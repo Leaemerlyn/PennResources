@@ -1,4 +1,4 @@
-.contributionCardContainer{
+.myContributionContainer{
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -8,4 +8,16 @@
 
 .addResource{
     width: 150px;
+}
+
+#contributionListContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 12px 0px;
+}
+
+.filterContainer {
+    display: flex;
+    gap: 12px;
 }
