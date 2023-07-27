@@ -3,6 +3,7 @@ import "./Contribute.css"
 import { database } from '../config/firebase';
 import { doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { useState, forwardRef } from 'react';
+import { moduleOptions, courseOptions } from '../util';
 
 // forwardRef allows the Input component to be used in the Form below
 // not sure how it works
@@ -23,9 +24,6 @@ const formRequirements = Schema.Model({
 })
 
 export function Edit ({setEditingResource, getContributions, type, title, course, module, link, description, anonymity, docID}) {
-
-    const courseList = ["591", "592", "593", "594", "595", "596", "515", "521", "530", "545", "547", "549", "550", "551", "553", "555", "581", "582", "575", "541", "542", "546"].map(item => ({ label: item, value: item }));
-    const moduleList = ["Module 1", "Module 2", "Module 3", "Module 4", "Module 5", "Module 6", "Module 7", "Module 8", "Module 9", "Module 10", "Module 11", "Module 12", "Module 13"].map(item => ({ label: item, value: item }));
     const resourceTypeList = ["Video", "Reading", "Practice Problem"].map(item =>({label: item, value: item}));
     const yesOrNo = ["Yes", "No"].map(item =>({label: item, value: item}));
 
@@ -72,6 +70,7 @@ export function Edit ({setEditingResource, getContributions, type, title, course
                     await deleteDoc(doc(database, "resources", docID));
                     toaster.clear();
                     getContributions();
+                    setEditingResource(false);
                 }
                 }
             > Confirm </Button>
@@ -85,14 +84,15 @@ export function Edit ({setEditingResource, getContributions, type, title, course
 
     return(
         <div className="contributeContainer">
+            <h4>Editing Resource</h4>
             <Form fluid model={formRequirements}>
 
                 <Form.Group controlID="course">
-                    <Form.Control name="course" placeholder={course} accepter={InputPicker} data={courseList} onChange={setNewCourseSelection}/>
+                    <Form.Control name="course" placeholder={course} accepter={InputPicker} data={courseOptions} onChange={setNewCourseSelection}/>
                 </Form.Group>
 
                 <Form.Group controlID="module">
-                    <Form.Control name="module" placeholder={module} accepter={InputPicker} data={moduleList} onChange={setNewModuleSelection}/>
+                    <Form.Control name="module" placeholder={module} accepter={InputPicker} data={moduleOptions} onChange={setNewModuleSelection}/>
                 </Form.Group>
 
                 <Form.Group controlID="resourceType">

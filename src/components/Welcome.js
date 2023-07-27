@@ -1,7 +1,5 @@
-//import Link from "react-dom";
 import './Welcome.css'
 import React from 'react';
-// import './styles.css';
 
 import { Panel, PanelGroup } from 'rsuite';
 

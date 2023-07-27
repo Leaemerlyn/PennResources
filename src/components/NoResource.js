@@ -1,13 +1,12 @@
 import { Panel } from 'rsuite';
+import "./NoResource.css"
 
 export function NoResource () {
     return (
-        <>
-        <Panel header="No Resources Posted (yet)">
-            <p>
-              Post an article, video, or other resource that helped you better understand course material!
-              </p>
-          </Panel>
-        </>
+        <p className="noResource">
+            You have no contributions yet.
+
+            Post an article, video, or other resource that helped you better understand course material!
+        </p>
     )
 }

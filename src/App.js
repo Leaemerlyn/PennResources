@@ -9,7 +9,7 @@ import { Contact } from './pages/Contact';
 import { signInWithPopup, signOut} from "firebase/auth"
 import { auth, googleProvider } from "./config/firebase"
 import NavItem from 'rsuite/esm/Nav/NavItem';
-import { Welcome } from './pages/Welcome';
+import { Welcome } from './components/Welcome';
 
 
 function App() {
