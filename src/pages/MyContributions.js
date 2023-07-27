@@ -1,18 +1,19 @@
-import { Button, SelectPicker } from 'rsuite';
 import "./MyContributions.css";
-import { ContributionCard } from '../components/ContributionCard';
 import { useState, useEffect } from 'react';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { database, auth } from "../config/firebase";
 import { Contribute } from './Contribute';
+import { ContributionList } from '../components/ContributionList';
+import { Edit } from "./Edit";
 
-const courseOptions = ["591", "592", "593", "594", "595", "596", "515", "521", "530", "545", "547", "549", "550", "551", "553", "555", "581", "582", "575", "541", "542", "546"].map(item => ({ label: item, value: item }));
-const moduleOptions = ["Module 1", "Module 2", "Module 3", "Module 4", "Module 5", "Module 6", "Module 7", "Module 8", "Module 9", "Module 10", "Module 11", "Module 12", "Module 13"].map(item => ({ label: item, value: item }));
+
 
 export function MyContributions({loggedIn}) {
   const [contributionsList, setContributionsList] = useState([]);
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [selectedModule, setSelectedModule] = useState(null);
+  const [addingResource, setAddingResource] = useState(false);
+  const [resourceIdToEdit, setResourceIdToEdit] = useState(null);
 
   const getContributions = async () => {
     const currentUser = auth.currentUser;
@@ -83,6 +84,9 @@ export function MyContributions({loggedIn}) {
         ...contributionDoc.data(),
         id: contributionDoc.id
       }));
+
+      console.log('Setting contributions list to:')
+      console.log(userContributions);
   
       setContributionsList(userContributions);
     };  
@@ -90,74 +94,48 @@ export function MyContributions({loggedIn}) {
     getContributions();
   }, [selectedCourse, selectedModule]);
 
-  const [addingResource, setAddingResource] = useState(false);
+  const contributionToEdit = contributionsList.find((contribution) => contribution.id === resourceIdToEdit);
+  console.log('Contribution To edit: ');
+  console.log(contributionToEdit);
 
-  const handleCourseFilter = (value) => {
-    setSelectedCourse(value);
-  };
-
-  const handleModuleFilter = (value) => {
-    setSelectedModule(value);
-  };
+  console.log('Contributions list outside: ');
+  console.log(contributionsList);
 
   if (loggedIn) {
     return (
-      <div className="contributionCardContainer">
-        {addingResource ? (
-          <></>
-        ) : (
-          <h4>
-            {contributionsList.length === 0
-              ? "No resources found. Click below to start adding resources."
-              : "Here are all your contributions to Penn Resources"}
-          </h4>
-        )}
-        {addingResource ? (
-          <Contribute setAddingResource={setAddingResource} getContributions={getContributions} />
-        ) : (
-          <div>
-            <div className="filterContainer">
-              <SelectPicker
-                data={courseOptions}
-                value={selectedCourse}
-                onChange={handleCourseFilter}
-                placeholder="Select"
-                className="filterInput"
-              />
-              <SelectPicker
-                data={moduleOptions}
-                value={selectedModule}
-                onChange={handleModuleFilter}
-                placeholder="Select"
-                className="filterInput"
-              />
-            </div>
-            {contributionsList.map((contribution) => (
-              <ContributionCard
-                key={contribution.id}
-                getContributions={getContributions}
-                course={contribution.Course}
-                module={contribution.Module}
-                link={contribution.Link}
-                description={contribution.Description}
-                title={contribution.Title}
-                anonymity={contribution.Anonymity}
-                type={contribution.Type}
-                docID={contribution.id}
-              />
-            ))}
-          </div>
-        )}
-        {addingResource ? (
-          <></>
-        ) : (
-          <Button
-            appearance="ghost"
-            className="addResource"
-            onClick={() => setAddingResource(true)}
-          > Add Resources
-          </Button>
-        )}
+      <div className="myContributionContainer">
+        { resourceIdToEdit ? 
+          <Edit 
+            setEditingResource={() => setResourceIdToEdit(null)} 
+            getContributions={getContributions} 
+            type={contributionToEdit.Type}
+            title={contributionToEdit.Title}
+            course={contributionToEdit.Course}
+            module={contributionToEdit.Module}
+            link={contributionToEdit.Link}
+            description={contributionToEdit.Description}
+            anonymity={contributionToEdit.Anonymity}
+            docID={contributionToEdit.id}
+            />
+
+        : (addingResource ? 
+          <Contribute 
+            setAddingResource={setAddingResource}
+            getContributions={getContributions}
+          />
+          :
+          <ContributionList 
+            setSelectedModule={setSelectedModule}
+            setSelectedCourse={setSelectedCourse}
+            setResourceIdToEdit={setResourceIdToEdit}
+            selectedCourse={selectedCourse}
+            selectedModule={selectedModule}
+            contributionsList={contributionsList}
+            getContributions={getContributions}
+            setAddingResource={setAddingResource}
+          />)
+        }
+
       </div>
     );
   }

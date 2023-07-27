@@ -3,6 +3,7 @@ import "./Contribute.css"
 import { database, auth } from '../config/firebase';
 import { collection, addDoc } from 'firebase/firestore';
 import { useState, forwardRef} from 'react';
+import { courseOptions, moduleOptions } from '../util';
 
 // forwardRef allows the Input component to be used in the Form below
 // not sure how it works
@@ -23,8 +24,7 @@ const formRequirements = Schema.Model({
 })
 
 export function Contribute ({setAddingResource, getContributions}) {
-    const courseList = ["591", "592", "593", "594", "595", "596", "515", "521", "530", "545", "547", "549", "550", "551", "553", "555", "581", "582", "575", "541", "542", "546"].map(item => ({ label: item, value: item }));
-    const moduleList = ["Module 1", "Module 2", "Module 3", "Module 4", "Module 5", "Module 6", "Module 7", "Module 8", "Module 9", "Module 10", "Module 11", "Module 12", "Module 13"].map(item => ({ label: item, value: item }));
+
     const resourceTypeList = ["Video", "Reading", "Practice Problem"].map(item =>({label: item, value: item}));
     const yesOrNo = ["Yes", "No"].map(item =>({label: item, value: item}));
 
@@ -62,42 +62,41 @@ export function Contribute ({setAddingResource, getContributions}) {
     
             getContributions();
         }
+        setAddingResource(false);
     };
     
 
-
-
     return(
         <div className="contributeContainer">
-            <h5>Add a resource to help out fellow students!</h5>
+            <h4> Add a resource to help out fellow students!</h4>
             <Form fluid model={formRequirements}>
 
                 <Form.Group controlID="course">
-                    <Form.Control name="course" placeholder="Course" accepter={InputPicker} data={courseList} onChange={setCourseSelection}/>
+                    <Form.Control name="course" placeholder="Course" accepter={InputPicker} data={courseOptions} onChange={setCourseSelection} isRequired/>
                 </Form.Group>
 
                 <Form.Group controlID="module">
-                    <Form.Control name="module" placeholder="Module" accepter={InputPicker} data={moduleList} onChange={setModuleSelection}/>
+                    <Form.Control name="module" placeholder="Module" accepter={InputPicker} data={moduleOptions} onChange={setModuleSelection} isRequired/>
                 </Form.Group>
 
                 <Form.Group controlID="resourceType">
-                    <Form.Control name="resourceType" placeholder="Type of Resource" accepter={CheckPicker} data={resourceTypeList} onChange={setType}/>
+                    <Form.Control name="resourceType" placeholder="Type of Resource" accepter={CheckPicker} data={resourceTypeList} onChange={setType} isRequired/>
                 </Form.Group>
 
                 <Form.Group controlId="anonymity">
-                    <Form.Control name="anonymity" placeholder="Show name in post?" accepter={InputPicker} data={yesOrNo} onChange={setAnonymity}/>
+                    <Form.Control name="anonymity" placeholder="Show name in post?" accepter={InputPicker} data={yesOrNo} onChange={setAnonymity} isRequired/>
                 </Form.Group>
 
                 <Form.Group controlId="title">
-                    <Form.Control name="title" placeholder="Title" onChange={setTitle}/>
+                    <Form.Control name="title" placeholder="Title" onChange={setTitle} isRequired/>
                 </Form.Group>
 
                 <Form.Group controlId="link">
-                    <Form.Control name="link" placeholder="Link" onChange={setURL}/>
+                    <Form.Control name="link" placeholder="Link" onChange={setURL} isRequired/>
                 </Form.Group>
 
                 <Form.Group controlId="description">
-                    <Form.Control name="description" rows={5} placeholder="Give a brief description" accepter={descriptionBox} onChange={setDescription}/>
+                    <Form.Control name="description" rows={5} placeholder="Give a brief description" accepter={descriptionBox} onChange={setDescription} isRequired/>
                 </Form.Group>
 
                 <ButtonToolbar>
