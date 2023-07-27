@@ -5,9 +5,7 @@ import { Welcome } from '../components/Welcome';
 import { database } from '../config/firebase';
 import { collection, query, where, getDocs } from "firebase/firestore";
 import "./Resources.css";
-
-const courseData = ["591", "592", "593", "594", "595", "596", "515", "521", "530", "545", "547", "549", "550", "551", "553", "555", "581", "582", "575", "541", "542", "546"].map(item => ({ label: item, value: item }));
-const moduleData = ["Module 1", "Module 2", "Module 3", "Module 4", "Module 5", "Module 6", "Module 7", "Module 8", "Module 9", "Module 10", "Module 11", "Module 12", "Module 13"].map(item => ({ label: item, value: item }));
+import { courseOptions, moduleOptions } from '../util';
 
 export function Resources() {
   const [selectedCourse, setSelectedCourse] = useState([]);
@@ -51,8 +49,8 @@ export function Resources() {
   return (
     <div className="ResourcesContainer">
       <div className="criteria">
-        <CheckPicker data={courseData} onChange={(value, e) => setSelectedCourse(value)} />
-        <CheckPicker data={moduleData} onChange={(value, e) => setSelectedModule(value)} />
+        <CheckPicker data={courseOptions} onChange={(value, e) => setSelectedCourse(value)} placeholder="Course"/>
+        <CheckPicker data={moduleOptions} onChange={(value, e) => setSelectedModule(value)} placeholder="Module"/>
       </div>
 
       {selectedCourse.length === 0 && selectedModule.length === 0 ? (
