@@ -26,6 +26,7 @@ export function Welcome () {
             <p>
             Be aware of what you’re posting and reading and make sure that it doesn’t violate any MCIT academic policies. Thank you for contributing!
             </p>
+            <a href="https://catalog.upenn.edu/pennbook/code-of-academic-integrity/">Penn's Code of Academic Integrity</a>
           </Panel>
         </PanelGroup>
         </>
