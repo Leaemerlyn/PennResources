@@ -7,7 +7,7 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import "./Resources.css";
 import { courseOptions, moduleOptions } from '../util';
 
-export function Resources() {
+export function Resources( loggedIn ) {
   const [selectedCourse, setSelectedCourse] = useState([]);
   const [selectedModule, setSelectedModule] = useState([]);
   const [courseList, setCourseList] = useState([]);
@@ -58,7 +58,7 @@ export function Resources() {
       ) : (
         <div className="cards">
           {courseList.map((course) => (
-            <ResourceCard docID={course.id} course={course.Course} description={course.Description} likes={course.Likes} link={course.Link} module={course.Module} title={course.Title} type={course.Type} contributor={course.Contributor}
+            <ResourceCard loggedIn={loggedIn} docID={course.id} course={course.Course} description={course.Description} likes={course.Likes} link={course.Link} module={course.Module} title={course.Title} type={course.Type} contributor={course.Contributor}
             />
           ))}
         </div>

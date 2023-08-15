@@ -1,35 +1,50 @@
-import { Panel, Tag, IconButton} from "rsuite";
+import { Panel, Tag, IconButton, Notification, useToaster } from "rsuite";
 import { FaThumbsUp } from "react-icons/fa"; // Importing thumbs-up icons
 import "./ResourceCard.css";
 import { useState } from "react";
 import { database } from '../config/firebase';
 import { doc, updateDoc, deleteDoc } from 'firebase/firestore';
 
-export function ResourceCard({ docID, course, description, likes, link, title, type=[], contributor }) {
+export function ResourceCard({ loggedIn, docID, course, description, likes, link, title, type=[], contributor }) {
   const [hover, setHover] = useState(false);
   const [liked, setLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(likes);
 
+  const toaster = useToaster();
+
+  const signInMessage = (
+    <Notification type={"info"} header={"Informational"}>
+      <p>You need to sign in to save your likes</p>
+    </Notification>
+  )
+
   const changeLikeCount = async(event) => {
-    console.log(liked);
-    console.log(likeCount);
-    event.stopPropagation();
+    if (loggedIn['loggedIn'] === true) {
+      console.log("YELLO");
 
-    const currContribution = doc(database, "resources", docID);
+      event.stopPropagation();
 
-    if (liked === true) {
-      setLikeCount(likeCount - 1);
-      await updateDoc(currContribution, {
-        Likes: likeCount - 1
-      })
+      const currContribution = doc(database, "resources", docID);
+
+      if (liked === true) {
+        setLikeCount(likeCount - 1);
+        await updateDoc(currContribution, {
+          Likes: likeCount - 1
+        })
+      } else {
+        setLikeCount(likeCount + 1);
+        await updateDoc(currContribution, {
+          Likes: likeCount + 1
+        })
+      }
+
+      setLiked(!liked);
+
     } else {
-      setLikeCount(likeCount + 1);
-      await updateDoc(currContribution, {
-        Likes: likeCount + 1
-      })
+      console.log("hELLO");
+      event.stopPropagation();
+      toaster.push(signInMessage, {duration: 3000});
     }
-
-    setLiked(!liked);
   }
 
 
@@ -48,7 +63,13 @@ export function ResourceCard({ docID, course, description, likes, link, title, t
           <div id="tagList">
             {arrayType.map(singleTag => <Tag>{singleTag}</Tag>)}
             <Tag>{course}</Tag>
-            <IconButton icon={<div>{liked ? <FaThumbsUp style={{color:'red', size: '0.8em'}}/> : <FaThumbsUp size='0.8em' />}</div>} size="xs" onClick={changeLikeCount} />
+            <IconButton icon={
+            <div>
+              {liked ? <FaThumbsUp style={{color:'red', size: '0.8em'}}/> : <FaThumbsUp size='0.8em' />}
+            </div>
+            }
+            size="xs" onClick={changeLikeCount} 
+            />
             <Tag color="black" size="md">{likeCount}</Tag>
           </div>
           <p>By: {contributor}</p>
