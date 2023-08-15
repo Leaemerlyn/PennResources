@@ -95,11 +95,6 @@ export function MyContributions({loggedIn}) {
   }, [selectedCourse, selectedModule]);
 
   const contributionToEdit = contributionsList.find((contribution) => contribution.id === resourceIdToEdit);
-  console.log('Contribution To edit: ');
-  console.log(contributionToEdit);
-
-  console.log('Contributions list outside: ');
-  console.log(contributionsList);
 
   if (loggedIn) {
     return (
