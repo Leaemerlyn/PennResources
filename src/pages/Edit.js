@@ -41,6 +41,8 @@ export function Edit ({setEditingResource, getContributions, type, title, course
 
     const currContribution = doc(database, "resources", docID);
 
+    var deleteKey = null;
+
     const updateContribution = async() => {
         
         // only updates if all fields are filled
@@ -56,10 +58,11 @@ export function Edit ({setEditingResource, getContributions, type, title, course
             Anonymity: newAnonymity
         })
 
+        setEditingResource(false);
+
         getContributions();
         }
 
-        setEditingResource(false);
     }
 
     const deleteConfirmation = (
@@ -68,19 +71,24 @@ export function Edit ({setEditingResource, getContributions, type, title, course
             <Button color = 'red' appearance = 'primary' onClick={
                 async() => {
                     await deleteDoc(doc(database, "resources", docID));
-                    toaster.clear();
+                    toaster.remove(deleteKey);
                     getContributions();
                     setEditingResource(false);
                 }
                 }
             > Confirm </Button>
-            <Button onClick={() => toaster.clear()}>Cancel</Button>
+            <Button onClick={() => toaster.remove(deleteKey)}>Cancel</Button>
         </Notification>
     );
 
     const showDeleteConfirmation = () => {
-        toaster.push(deleteConfirmation, {duration: 0});
+        deleteKey = toaster.push(deleteConfirmation, {duration: 0});
     };
+
+    const cancelDelete = () => {
+        toaster.remove(deleteKey);
+        setEditingResource(false);
+    }
 
     return(
         <div className="contributeContainer">
@@ -116,9 +124,9 @@ export function Edit ({setEditingResource, getContributions, type, title, course
                 </Form.Group>
 
                 <ButtonToolbar>
-                    <Button onClick={() => setEditingResource(false)}>Cancel</Button>
-                    <Button appearance='primary' type='submit' onClick={updateContribution}>Submit</Button>
-                    <Button color = 'red' appearance = 'primary' onClick={showDeleteConfirmation}>Delete (Permanent)</Button>
+                    <Button onClick={cancelDelete}>Cancel</Button>
+                    <Button appearance="primary" type="submit" onClick={updateContribution}>Submit</Button>
+                    <Button color = "red" appearance = "primary" onClick={showDeleteConfirmation}>Delete (Permanent)</Button>
                 </ButtonToolbar>
             </Form>
         </div>
