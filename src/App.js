@@ -39,7 +39,6 @@ function App() {
       setLoggedIn(false);
       setPage("Resources");
       toaster.push(signOutSuccess, {duration: 3000});
-      toaster.clear();
     } catch (err){
       console.log(err);
     }

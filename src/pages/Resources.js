@@ -58,7 +58,7 @@ export function Resources() {
       ) : (
         <div className="cards">
           {courseList.map((course) => (
-            <ResourceCard key={course.id} course={course.Course} description={course.Description} link={course.Link} module={course.Module} title={course.Title} type={course.Type} contributor={course.Contributor}
+            <ResourceCard docID={course.id} course={course.Course} description={course.Description} likes={course.Likes} link={course.Link} module={course.Module} title={course.Title} type={course.Type} contributor={course.Contributor}
             />
           ))}
         </div>
