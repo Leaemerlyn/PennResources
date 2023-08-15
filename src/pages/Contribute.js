@@ -59,10 +59,11 @@ export function Contribute ({setAddingResource, getContributions}) {
             uid: currentUser.uid,
             Anonymity: anonymity
             })
+
+            setAddingResource(false);
     
             getContributions();
         }
-        setAddingResource(false);
     };
     
 
