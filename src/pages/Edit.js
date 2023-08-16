@@ -29,33 +29,38 @@ export function Edit ({setEditingResource, getContributions, type, title, course
 
     const toaster = useToaster();
 
-    // initialize states to store the user inputs
-    // the set functions are used as the onChange functions in the components below
-    const [newCourseSelection, setNewCourseSelection] = useState("");
-    const [newModuleSelection, setNewModuleSelection] = useState("");
-    const [newURL, setNewURL] = useState("");
-    const [newType, setNewType] = useState("");
-    const [newDescription, setNewDescription] = useState("");
-    const [newTitle, setNewTitle] = useState("");
-    const [newAnonymity, setNewAnonymity] = useState("");
+    // store the original resource data as an object
+    const resource = {
+        title: title,
+        resourceType: type,
+        course: course,
+        module: module,
+        link: link,
+        description: description,
+        anonymity: anonymity
+    }
+
+    // use useState to change the resource data as user edits 
+    const [draft, setDraft] = useState(resource);
 
     const currContribution = doc(database, "resources", docID);
 
     var deleteKey = null;
 
     const updateContribution = async() => {
+        console.log(draft)
         
         // only updates if all fields are filled
-        if (newCourseSelection !== "" && newModuleSelection !== "" && newURL.startsWith("https://") && newType !== "" &&
-        newDescription !== "" && newTitle !== "" && newAnonymity !== "") {
+        if (draft.course !== "" && draft.module !== "" && draft.link.startsWith("https://") && draft.type !== "" &&
+        draft.description !== "" && draft.title !== "" && draft.anonymity !== "") {
         await updateDoc(currContribution, {
-            Course: newCourseSelection,
-            Module: newModuleSelection,
-            Link: newURL,
-            Type: newType,
-            Description: newDescription,
-            Title: newTitle,
-            Anonymity: newAnonymity
+            Course: draft.course,
+            Module: draft.module,
+            Link: draft.link,
+            Type: draft.resourceType,
+            Description: draft.description,
+            Title: draft.title,
+            Anonymity: draft.anonymity
         })
 
         setEditingResource(false);
@@ -90,37 +95,38 @@ export function Edit ({setEditingResource, getContributions, type, title, course
         setEditingResource(false);
     }
 
+    // onChange in the form will update the draft in useState as user edits
     return(
         <div className="contributeContainer">
             <h4>Editing Resource</h4>
-            <Form fluid model={formRequirements}>
+            <Form fluid model={formRequirements} formValue={draft} onChange={formValue => setDraft(formValue)}>
 
                 <Form.Group controlID="course">
-                    <Form.Control name="course" placeholder={course} accepter={InputPicker} data={courseOptions} onChange={setNewCourseSelection}/>
+                    <Form.Control name="course" placeholder={course} accepter={InputPicker} data={courseOptions}/>
                 </Form.Group>
 
                 <Form.Group controlID="module">
-                    <Form.Control name="module" placeholder={module} accepter={InputPicker} data={moduleOptions} onChange={setNewModuleSelection}/>
+                    <Form.Control name="module" placeholder={module} accepter={InputPicker} data={moduleOptions}/>
                 </Form.Group>
 
                 <Form.Group controlID="resourceType">
-                    <Form.Control name="resourceType" placeholder={type} accepter={CheckPicker} data={resourceTypeList} onChange={setNewType}/>
+                    <Form.Control name="resourceType" placeholder={type} accepter={CheckPicker} data={resourceTypeList}/>
                 </Form.Group>
 
                 <Form.Group controlId="anonymity">
-                    <Form.Control name="anonymity" placeholder={anonymity} accepter={InputPicker} data={yesOrNo} onChange={setNewAnonymity}/>
+                    <Form.Control name="anonymity" placeholder={anonymity} accepter={InputPicker} data={yesOrNo}/>
                 </Form.Group>
 
                 <Form.Group controlId="title">
-                    <Form.Control name="title" placeholder={title} onChange={setNewTitle}/>
+                    <Form.Control name="title" placeholder={title}/>
                 </Form.Group>
 
                 <Form.Group controlId="link">
-                    <Form.Control name="link" placeholder={link} onChange={setNewURL}/>
+                    <Form.Control name="link" placeholder={link}/>
                 </Form.Group>
 
                 <Form.Group controlId="description">
-                    <Form.Control name="description" rows={5} placeholder={description} accepter={descriptionBox} onChange={setNewDescription}/>
+                    <Form.Control name="description" rows={5} placeholder={description} accepter={descriptionBox}/>
                 </Form.Group>
 
                 <ButtonToolbar>
