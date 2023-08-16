@@ -21,7 +21,6 @@ export function ResourceCard({ loggedIn, resource, type=[]}) {
         currentLikers.forEach((userID) => {
           if (userID === currentUID) {
             setLiked(true);
-            return;
           }
         }) 
       }
@@ -46,14 +45,14 @@ export function ResourceCard({ loggedIn, resource, type=[]}) {
 
     if (loggedIn['loggedIn'] === true) {
 
+      // prevent forwarding to other pages
+      event.stopPropagation();
+
       const currentUser = auth.currentUser;
       const currentUID = currentUser.uid;
 
       // index of the user's UID
       var indexOfUID = null;
-
-      // prevent forwarding to other pages
-      event.stopPropagation();
 
       // get the most current array of likers
       const currResource = doc(database, "resources", resource.id);
