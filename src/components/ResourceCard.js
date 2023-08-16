@@ -11,18 +11,20 @@ export function ResourceCard({ loggedIn, resource, type=[]}) {
   const [likeCount, setLikeCount] = useState(resource.Likes);
   const toaster = useToaster();
 
-  const currentUser = auth.currentUser;
-  const currentUID = currentUser.uid;
-
+  // checks if user has liked this resource already
   useEffect(() => {
     const checkLikes = () => {
-      var currentLikers = resource.Likers;
-      currentLikers.forEach((userID) => {
-        if (userID === currentUID) {
-          setLiked(true);
-          return;
-        }
-      })
+      if (loggedIn['loggedIn'] === true) {
+        const currentUser = auth.currentUser;
+        const currentUID = currentUser.uid;
+        var currentLikers = resource.Likers;
+        currentLikers.forEach((userID) => {
+          if (userID === currentUID) {
+            setLiked(true);
+            return;
+          }
+        }) 
+      }
     };
 
     checkLikes();
@@ -36,45 +38,64 @@ export function ResourceCard({ loggedIn, resource, type=[]}) {
     </Notification>
   )
 
+  // adjust the number of likes for this resource
+  // the UIDs of likers are stored in an array in Firebase
+  // if a user stops liking a resource, its UID in the
+  // array is replaced with a null
   const changeLikeCount = async(event) => {
-
-    var indexOfUID = null;
 
     if (loggedIn['loggedIn'] === true) {
 
+      const currentUser = auth.currentUser;
+      const currentUID = currentUser.uid;
+
+      // index of the user's UID
+      var indexOfUID = null;
+
+      // prevent forwarding to other pages
       event.stopPropagation();
 
+      // get the most current array of likers
       const currResource = doc(database, "resources", resource.id);
       const resourceDoc  = await getDoc(currResource);
       var currentLikes = 0;
       const likersList = resourceDoc.data()["Likers"];
 
+      // count number of valid UIDs in the array
       likersList.forEach((userID) => {
         if (userID !== null) {
           currentLikes += 1;
         }
       })
 
+      // get the index of this user's UID in the array
+      // if not present, index is -1
       indexOfUID = likersList.indexOf(currentUID);
       
+      // decrement like count
       if (liked === true) {
 
+        // set the user's UID in the array to null as needed
         if (indexOfUID >= 0) {
           likersList[indexOfUID] = null;
         }
 
+        // update likes and array of likers in Firebase
         setLikeCount(currentLikes - 1);
         await updateDoc(currResource, {
           Likes: currentLikes - 1,
           Likers: likersList
         })
 
+      // increment like count
       } else {
 
+        // append the user's UID into the array as needed
         if (indexOfUID === -1) {
           likersList.push(currentUID);
         }
 
+        // update likes and array of likers in Firebase
         setLikeCount(currentLikes + 1);
         await updateDoc(currResource, {
           Likes: currentLikes + 1,
@@ -86,6 +107,7 @@ export function ResourceCard({ loggedIn, resource, type=[]}) {
 
     } else {
 
+      // only loggedin users can like a resource
       event.stopPropagation();
       toaster.push(signInMessage, {duration: 3000});
     }
