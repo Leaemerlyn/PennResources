@@ -1,14 +1,14 @@
 import { Panel, Tag, IconButton, Notification, useToaster } from "rsuite";
 import { FaThumbsUp } from "react-icons/fa"; // Importing thumbs-up icons
 import "./ResourceCard.css";
-import { useState } from "react";
-import { database } from '../config/firebase';
-import { doc, updateDoc, deleteDoc } from 'firebase/firestore';
+import { useState, useEffect } from "react";
+import { database, auth } from '../config/firebase';
+import { doc, updateDoc, getDoc } from 'firebase/firestore';
 
-export function ResourceCard({ loggedIn, docID, course, description, likes, link, title, type=[], contributor }) {
+export function ResourceCard({ loggedIn, docID, course, description, likes, likers, link, title, type=[], contributor }) {
   const [hover, setHover] = useState(false);
   const [liked, setLiked] = useState(false);
-  const [likeCount, setLikeCount] = useState(likes);
+  const [likeCount, setLikeCount] = useState(likes); 
 
   const toaster = useToaster();
 
@@ -19,29 +19,66 @@ export function ResourceCard({ loggedIn, docID, course, description, likes, link
   )
 
   const changeLikeCount = async(event) => {
+
+    const currentUser = auth.currentUser;
+    const currentUID = currentUser.uid;
+    var indexOfUID = null;
+
     if (loggedIn['loggedIn'] === true) {
-      console.log("YELLO");
 
       event.stopPropagation();
 
-      const currContribution = doc(database, "resources", docID);
+      const currResource = doc(database, "resources", docID);
+      const resource  = await getDoc(currResource);
+      var currentLikes = 0;
+      const likersList = resource.data()["Likers"];
 
+      likersList.forEach((userID) => {
+        if (userID !== null) {
+          currentLikes += 1;
+        }
+      })
+      
+      console.log("Current");
+      console.log(currentLikes);
+
+      indexOfUID = likersList.indexOf(currentUID);
+      
       if (liked === true) {
-        setLikeCount(likeCount - 1);
-        await updateDoc(currContribution, {
-          Likes: likeCount - 1
+        console.log("Decrement");
+        console.log(currentLikes);
+
+        if (indexOfUID >= 0) {
+          likersList[indexOfUID] = null;
+        }
+
+        setLikeCount(currentLikes - 1);
+        await updateDoc(currResource, {
+          Likes: currentLikes - 1,
+          Likers: likersList
         })
+
       } else {
-        setLikeCount(likeCount + 1);
-        await updateDoc(currContribution, {
-          Likes: likeCount + 1
+
+        console.log("Increment");
+        console.log(currentLikes);
+
+        if (indexOfUID === -1) {
+          likersList.push(currentUID);
+        }
+        console.log(likersList);
+
+        setLikeCount(currentLikes + 1);
+        await updateDoc(currResource, {
+          Likes: currentLikes + 1,
+          Likers: likersList
         })
       }
 
       setLiked(!liked);
 
     } else {
-      console.log("hELLO");
+
       event.stopPropagation();
       toaster.push(signInMessage, {duration: 3000});
     }

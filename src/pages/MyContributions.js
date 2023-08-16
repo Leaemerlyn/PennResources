@@ -89,7 +89,7 @@ export function MyContributions({loggedIn}) {
       console.log(userContributions);
   
       setContributionsList(userContributions);
-    };  
+    };
 
     getContributions();
   }, [selectedCourse, selectedModule]);

@@ -52,12 +52,13 @@ export function Contribute ({setAddingResource, getContributions}) {
             Course: courseSelection,
             Description: description,
             Title: title,
-            Likes: 0,
             Link: URL,
             Module: moduleSelection,
             Type: type,
             uid: currentUser.uid,
-            Anonymity: anonymity
+            Anonymity: anonymity,
+            LikersMap: {"true": []},
+            Likes: 0
             })
 
             setAddingResource(false);
