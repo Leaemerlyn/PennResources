@@ -57,7 +57,7 @@ export function Contribute ({setAddingResource, getContributions}) {
             Type: type,
             uid: currentUser.uid,
             Anonymity: anonymity,
-            LikersMap: {"true": []},
+            Likers: [],
             Likes: 0
             })
 

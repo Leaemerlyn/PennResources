@@ -5,12 +5,30 @@ import { useState, useEffect } from "react";
 import { database, auth } from '../config/firebase';
 import { doc, updateDoc, getDoc } from 'firebase/firestore';
 
-export function ResourceCard({ loggedIn, docID, course, description, likes, likers, link, title, type=[], contributor }) {
+export function ResourceCard({ loggedIn, resource, type=[]}) {
   const [hover, setHover] = useState(false);
   const [liked, setLiked] = useState(false);
-  const [likeCount, setLikeCount] = useState(likes); 
-
+  const [likeCount, setLikeCount] = useState(resource.Likes);
   const toaster = useToaster();
+
+  const currentUser = auth.currentUser;
+  const currentUID = currentUser.uid;
+
+  useEffect(() => {
+    const checkLikes = () => {
+      var currentLikers = resource.Likers;
+      currentLikers.forEach((userID) => {
+        if (userID === currentUID) {
+          setLiked(true);
+          return;
+        }
+      })
+    };
+
+    checkLikes();
+
+  }, [])
+
 
   const signInMessage = (
     <Notification type={"info"} header={"Informational"}>
@@ -20,33 +38,26 @@ export function ResourceCard({ loggedIn, docID, course, description, likes, like
 
   const changeLikeCount = async(event) => {
 
-    const currentUser = auth.currentUser;
-    const currentUID = currentUser.uid;
     var indexOfUID = null;
 
     if (loggedIn['loggedIn'] === true) {
 
       event.stopPropagation();
 
-      const currResource = doc(database, "resources", docID);
-      const resource  = await getDoc(currResource);
+      const currResource = doc(database, "resources", resource.id);
+      const resourceDoc  = await getDoc(currResource);
       var currentLikes = 0;
-      const likersList = resource.data()["Likers"];
+      const likersList = resourceDoc.data()["Likers"];
 
       likersList.forEach((userID) => {
         if (userID !== null) {
           currentLikes += 1;
         }
       })
-      
-      console.log("Current");
-      console.log(currentLikes);
 
       indexOfUID = likersList.indexOf(currentUID);
       
       if (liked === true) {
-        console.log("Decrement");
-        console.log(currentLikes);
 
         if (indexOfUID >= 0) {
           likersList[indexOfUID] = null;
@@ -60,13 +71,9 @@ export function ResourceCard({ loggedIn, docID, course, description, likes, like
 
       } else {
 
-        console.log("Increment");
-        console.log(currentLikes);
-
         if (indexOfUID === -1) {
           likersList.push(currentUID);
         }
-        console.log(likersList);
 
         setLikeCount(currentLikes + 1);
         await updateDoc(currResource, {
@@ -92,14 +99,14 @@ export function ResourceCard({ loggedIn, docID, course, description, likes, like
 
   return (
     <div className="resourceCard">
-      <Panel header={title}
-        bordered onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} shaded={hover} style={{ cursor: 'pointer' }} onClick={() => window.open(link, '_blank', 'noreferrer')}>
-        <p>{description}</p>
+      <Panel header={resource.title}
+        bordered onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} shaded={hover} style={{ cursor: 'pointer' }} onClick={() => window.open(resource.Link, '_blank', 'noreferrer')}>
+        <p>{resource.Description}</p>
         <br></br>
         <div className="bottomInfo" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div id="tagList">
             {arrayType.map(singleTag => <Tag>{singleTag}</Tag>)}
-            <Tag>{course}</Tag>
+            <Tag>{resource.Course}</Tag>
             <IconButton icon={
             <div>
               {liked ? <FaThumbsUp style={{color:'red', size: '0.8em'}}/> : <FaThumbsUp size='0.8em' />}
@@ -109,7 +116,7 @@ export function ResourceCard({ loggedIn, docID, course, description, likes, like
             />
             <Tag color="black" size="md">{likeCount}</Tag>
           </div>
-          <p>By: {contributor}</p>
+          <p>By: {resource.Contributor}</p>
         </div>
       </Panel>
     </div>
