@@ -11,6 +11,8 @@ export function Resources( loggedIn ) {
   const [selectedCourse, setSelectedCourse] = useState([]);
   const [selectedModule, setSelectedModule] = useState([]);
   const [courseList, setCourseList] = useState([]);
+  const [changeCourseList, setChangeCourseList] = useState(false);
+
   const coursesCollectionRef = collection(database, "resources");
 
   const toaster = useToaster();
@@ -31,7 +33,7 @@ export function Resources( loggedIn ) {
           }
 
           const data = await getDocs(q);
-          const filteredData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+          const filteredData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id })) ;
           
           setCourseList(filteredData);
         } else {
@@ -43,6 +45,7 @@ export function Resources( loggedIn ) {
     };
 
     getCourseList();
+    setChangeCourseList(!changeCourseList);
 
   }, [selectedCourse, selectedModule]);
 
@@ -58,7 +61,7 @@ export function Resources( loggedIn ) {
       ) : (
         <div className="cards">
           {courseList.map((course) => (
-            <ResourceCard loggedIn={loggedIn} resource={course} type={course.Type}
+            <ResourceCard key={course.id} changeCourseList={changeCourseList} loggedIn={loggedIn} resource={course} type={course.Type}
             />
           ))}
         </div>

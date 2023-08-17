@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { database, auth } from '../config/firebase';
 import { doc, updateDoc, getDoc } from 'firebase/firestore';
 
-export function ResourceCard({ loggedIn, resource, type=[]}) {
+export function ResourceCard({ changeCourseList, loggedIn, resource, type=[]}) {
   const [hover, setHover] = useState(false);
   const [liked, setLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(resource.Likes);
@@ -13,20 +13,22 @@ export function ResourceCard({ loggedIn, resource, type=[]}) {
 
   useEffect(() => {
     const checkLikes = async() => {
+
+      const currResource = doc(database, "resources", resource.id);
+      const resourceDoc  = await getDoc(currResource);
+
       if (loggedIn["loggedIn"] === true) {
+
         const currentUser = auth.currentUser;
         const currentUID = currentUser.uid;
-
-        const currResource = doc(database, "resources", resource.id);
-        const resourceDoc  = await getDoc(currResource);
 
         const likersList = resourceDoc.data()["Likers"];
 
         likersList.forEach((userID) => {
 
-        // check if user already liked the resource
-        if (userID === currentUID) {
-            setLiked(true);
+          // check if user already liked the resource
+          if (userID === currentUID) {
+              setLiked(true);
           }
         })
       }
@@ -84,14 +86,14 @@ export function ResourceCard({ loggedIn, resource, type=[]}) {
           likersList[indexOfUID] = null;
         }
 
+        setLiked(false);
+
         // update likes and array of likers in Firebase
         setLikeCount(currentLikes - 1);
         await updateDoc(currResource, {
           Likes: currentLikes - 1,
           Likers: likersList
         })
-
-        setLiked(false);
         
       // increment like count
       } else {
@@ -101,15 +103,14 @@ export function ResourceCard({ loggedIn, resource, type=[]}) {
           likersList.push(currentUID);
         }
 
+        setLiked(true);
+
         // update likes and array of likers in Firebase
         setLikeCount(currentLikes + 1);
         await updateDoc(currResource, {
           Likes: currentLikes + 1,
           Likers: likersList
         })
-
-        setLiked(true);
-
       }
 
     } else {
@@ -120,7 +121,6 @@ export function ResourceCard({ loggedIn, resource, type=[]}) {
     }
   }
 
-
   const arrayType = [];
   for (const one of type){
     arrayType.push(one);
@@ -128,7 +128,7 @@ export function ResourceCard({ loggedIn, resource, type=[]}) {
 
   return (
     <div className="resourceCard">
-      <Panel header={resource.title}
+      <Panel header={resource.Title}
         bordered onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} shaded={hover} style={{ cursor: 'pointer' }} onClick={() => window.open(resource.Link, '_blank', 'noreferrer')}>
         <p>{resource.Description}</p>
         <br></br>
