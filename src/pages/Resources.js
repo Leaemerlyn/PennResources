@@ -7,10 +7,12 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import "./Resources.css";
 import { courseOptions, moduleOptions } from '../util';
 
-export function Resources() {
+export function Resources( loggedIn ) {
   const [selectedCourse, setSelectedCourse] = useState([]);
   const [selectedModule, setSelectedModule] = useState([]);
   const [courseList, setCourseList] = useState([]);
+  const [changeCourseList, setChangeCourseList] = useState(false);
+
   const coursesCollectionRef = collection(database, "resources");
 
   const toaster = useToaster();
@@ -31,7 +33,7 @@ export function Resources() {
           }
 
           const data = await getDocs(q);
-          const filteredData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+          const filteredData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id })) ;
           
           setCourseList(filteredData);
         } else {
@@ -43,6 +45,7 @@ export function Resources() {
     };
 
     getCourseList();
+    setChangeCourseList(!changeCourseList);
 
   }, [selectedCourse, selectedModule]);
 
@@ -58,7 +61,7 @@ export function Resources() {
       ) : (
         <div className="cards">
           {courseList.map((course) => (
-            <ResourceCard key={course.id} course={course.Course} description={course.Description} link={course.Link} module={course.Module} title={course.Title} type={course.Type} contributor={course.Contributor}
+            <ResourceCard key={course.id} changeCourseList={changeCourseList} loggedIn={loggedIn} resource={course} type={course.Type}
             />
           ))}
         </div>

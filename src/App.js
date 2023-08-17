@@ -39,7 +39,6 @@ function App() {
       setLoggedIn(false);
       setPage("Resources");
       toaster.push(signOutSuccess, {duration: 3000});
-      toaster.clear();
     } catch (err){
       console.log(err);
     }
@@ -64,7 +63,7 @@ function App() {
       </Nav>
     </Navbar>
 
-    {page === "Resources" ? <Resources/>: <div></div>}
+    {page === "Resources" ? <Resources loggedIn={loggedIn} />: <div></div>}
     {page === "My-Contributions" ? <MyContributions loggedIn={loggedIn}/>: <div></div>}
     {page === "Contact" ? <Contact/> : <div></div>}
     </>
