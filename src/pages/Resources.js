@@ -45,7 +45,6 @@ export function Resources( loggedIn ) {
     };
 
     getCourseList();
-    setChangeCourseList(!changeCourseList);
 
   }, [selectedCourse, selectedModule]);
 
@@ -61,7 +60,7 @@ export function Resources( loggedIn ) {
       ) : (
         <div className="cards">
           {courseList.map((course) => (
-            <ResourceCard key={course.id} changeCourseList={changeCourseList} loggedIn={loggedIn} resource={course} type={course.Type}
+            <ResourceCard key={course.id} loggedIn={loggedIn} resource={course} type={course.Type}
             />
           ))}
         </div>

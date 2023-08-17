@@ -70,30 +70,34 @@ export function Edit ({setEditingResource, getContributions, type, title, course
 
     }
 
+    const cancelDelete = () => {
+        setEditingResource(false);
+        toaster.remove(deleteKey);
+    }
+
+    const cancelEdit = () => {
+        setEditingResource(false);
+    }
+
     const deleteConfirmation = (
         <Notification type={"warning"} header={"Warning"}>
             <p>Deleting a resource is permanent. Please confirm or cancel.</p>
             <Button color = 'red' appearance = 'primary' onClick={
                 async() => {
                     await deleteDoc(doc(database, "resources", docID));
-                    toaster.remove(deleteKey);
                     getContributions();
                     setEditingResource(false);
+                    cancelDelete();
                 }
                 }
             > Confirm </Button>
-            <Button onClick={() => toaster.remove(deleteKey)}>Cancel</Button>
+            <Button onClick={cancelDelete}>Cancel</Button>
         </Notification>
     );
 
     const showDeleteConfirmation = () => {
         deleteKey = toaster.push(deleteConfirmation, {duration: 0});
     };
-
-    const cancelDelete = () => {
-        toaster.remove(deleteKey);
-        setEditingResource(false);
-    }
 
     // onChange in the form will update the draft in useState as user edits
     return(
@@ -130,7 +134,7 @@ export function Edit ({setEditingResource, getContributions, type, title, course
                 </Form.Group>
 
                 <ButtonToolbar>
-                    <Button onClick={cancelDelete}>Cancel</Button>
+                    <Button onClick={cancelEdit}>Cancel</Button>
                     <Button appearance="primary" type="submit" onClick={updateContribution}>Submit</Button>
                     <Button color = "red" appearance = "primary" onClick={showDeleteConfirmation}>Delete (Permanent)</Button>
                 </ButtonToolbar>
