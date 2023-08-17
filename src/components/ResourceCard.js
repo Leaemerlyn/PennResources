@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { database, auth } from '../config/firebase';
 import { doc, updateDoc, getDoc } from 'firebase/firestore';
 
-export function ResourceCard({ changeCourseList, loggedIn, resource, type=[]}) {
+export function ResourceCard({ loggedIn, resource, type=[]}) {
   const [hover, setHover] = useState(false);
   const [liked, setLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(resource.Likes);
@@ -31,6 +31,8 @@ export function ResourceCard({ changeCourseList, loggedIn, resource, type=[]}) {
               setLiked(true);
           }
         })
+      } else {
+        setLiked(false);
       }
     }
 

@@ -11,7 +11,6 @@ export function Resources( loggedIn ) {
   const [selectedCourse, setSelectedCourse] = useState([]);
   const [selectedModule, setSelectedModule] = useState([]);
   const [courseList, setCourseList] = useState([]);
-  const [changeCourseList, setChangeCourseList] = useState(false);
 
   const coursesCollectionRef = collection(database, "resources");
 
@@ -45,7 +44,6 @@ export function Resources( loggedIn ) {
     };
 
     getCourseList();
-    setChangeCourseList(!changeCourseList);
 
   }, [selectedCourse, selectedModule]);
 
@@ -61,7 +59,7 @@ export function Resources( loggedIn ) {
       ) : (
         <div className="cards">
           {courseList.map((course) => (
-            <ResourceCard key={course.id} changeCourseList={changeCourseList} loggedIn={loggedIn} resource={course} type={course.Type}
+            <ResourceCard key={course.id} loggedIn={loggedIn} resource={course} type={course.Type}
             />
           ))}
         </div>
