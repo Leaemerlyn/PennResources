@@ -11,7 +11,6 @@ export function Resources( loggedIn ) {
   const [selectedCourse, setSelectedCourse] = useState([]);
   const [selectedModule, setSelectedModule] = useState([]);
   const [courseList, setCourseList] = useState([]);
-  const [changeCourseList, setChangeCourseList] = useState(false);
 
   const coursesCollectionRef = collection(database, "resources");
 
