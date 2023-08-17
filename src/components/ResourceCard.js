@@ -11,25 +11,30 @@ export function ResourceCard({ loggedIn, resource, type=[]}) {
   const [likeCount, setLikeCount] = useState(resource.Likes);
   const toaster = useToaster();
 
-  // checks if user has liked this resource already
   useEffect(() => {
-    const checkLikes = () => {
-      if (loggedIn['loggedIn'] === true) {
+    const checkLikes = async() => {
+      if (loggedIn["loggedIn"] === true) {
         const currentUser = auth.currentUser;
         const currentUID = currentUser.uid;
-        var currentLikers = resource.Likers;
-        currentLikers.forEach((userID) => {
-          if (userID === currentUID) {
+
+        const currResource = doc(database, "resources", resource.id);
+        const resourceDoc  = await getDoc(currResource);
+
+        const likersList = resourceDoc.data()["Likers"];
+
+        likersList.forEach((userID) => {
+
+        // check if user already liked the resource
+        if (userID === currentUID) {
             setLiked(true);
           }
-        }) 
+        })
       }
-    };
+    }
 
     checkLikes();
 
-  }, [])
-
+  }, [loggedIn["loggedIn"]])
 
   const signInMessage = (
     <Notification type={"info"} header={"Informational"}>
@@ -60,8 +65,8 @@ export function ResourceCard({ loggedIn, resource, type=[]}) {
       var currentLikes = 0;
       const likersList = resourceDoc.data()["Likers"];
 
-      // count number of valid UIDs in the array
       likersList.forEach((userID) => {
+        // count number of valid likes in the array
         if (userID !== null) {
           currentLikes += 1;
         }
@@ -86,6 +91,8 @@ export function ResourceCard({ loggedIn, resource, type=[]}) {
           Likers: likersList
         })
 
+        setLiked(false);
+        
       // increment like count
       } else {
 
@@ -100,9 +107,10 @@ export function ResourceCard({ loggedIn, resource, type=[]}) {
           Likes: currentLikes + 1,
           Likers: likersList
         })
-      }
 
-      setLiked(!liked);
+        setLiked(true);
+
+      }
 
     } else {
 
@@ -143,5 +151,4 @@ export function ResourceCard({ loggedIn, resource, type=[]}) {
     </div>
   );
 }
-
 
