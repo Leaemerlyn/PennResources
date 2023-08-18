@@ -15,3 +15,8 @@
     flex-direction: column;
     margin: 12px;
 }
+
+#no-resource-message{
+    margin: 30px 10px;
+    font-size: medium;
+}

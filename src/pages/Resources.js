@@ -47,6 +47,15 @@ export function Resources( loggedIn ) {
 
   }, [selectedCourse, selectedModule]);
 
+  const renderResourceCards = (courses) => {
+    if (courses.length == 0){
+      return (<p id="no-resource-message">there are no resources with these criteria. Why don't you add one? </p>)
+    } else{
+      return courses.map((course) => (
+        <ResourceCard key={course.id} loggedIn={loggedIn} resource={course} type={course.Type}/>))
+    }
+  }
+
   return (
     <div className="ResourcesContainer">
       <div className="criteria">
@@ -58,10 +67,7 @@ export function Resources( loggedIn ) {
         <Welcome />
       ) : (
         <div className="cards">
-          {courseList.map((course) => (
-            <ResourceCard key={course.id} loggedIn={loggedIn} resource={course} type={course.Type}
-            />
-          ))}
+          {renderResourceCards(courseList)}
         </div>
       )}
     </div>
