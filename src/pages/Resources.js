@@ -50,8 +50,8 @@ export function Resources( loggedIn ) {
   return (
     <div className="ResourcesContainer">
       <div className="criteria">
-        <CheckPicker data={courseOptions} onChange={(value, e) => setSelectedCourse(value)} placeholder="Course"/>
-        <CheckPicker data={moduleOptions} onChange={(value, e) => setSelectedModule(value)} placeholder="Module"/>
+        <CheckPicker data={courseOptions} onChange={(value, e) => setSelectedCourse(value)} placeholder="Course" style={{ width: 150 }}/>
+        <CheckPicker data={moduleOptions} onChange={(value, e) => setSelectedModule(value)} placeholder="Module" style={{ width: 150 }}/>
       </div>
 
       {selectedCourse.length === 0 && selectedModule.length === 0 ? (
