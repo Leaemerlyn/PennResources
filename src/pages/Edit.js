@@ -77,6 +77,7 @@ export function Edit ({setEditingResource, getContributions, type, title, course
     }
 
     const cancelEdit = () => {
+        toaster.remove(deleteKey);
         setEditingResource(false);
     }
 
