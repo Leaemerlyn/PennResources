@@ -17,7 +17,7 @@ export function ContributionCard ({link, description, title, type, openEditPage}
             <p>Link: {link}</p>
             <br></br>
             <div className="bottomInfo">
-                <div>{arrayType.map(singleTag => <Tag>{singleTag}</Tag>)}</div>
+                <div className="tag-row">{arrayType.map(singleTag => <Tag>{singleTag}</Tag>)}</div>
                 <EditIcon onClick={() => {openEditPage()}} style={{ fontSize: "1.3em", cursor:'pointer'}} />
             </div>
         </Panel>

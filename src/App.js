@@ -44,7 +44,7 @@ function App() {
   return (
     <>
     <Navbar>
-      <Navbar.Brand href="#"><img id="logo" src="logo.png" alt="logo"/></Navbar.Brand>
+      <Navbar.Brand onClick={() => setPage("Resources")}><img id="logo" src="logo.png" alt="logo"/></Navbar.Brand>
       <Nav>
         <Nav.Item onClick={() => setPage("Resources")}>Resources</Nav.Item>
         <Nav.Item onClick={() => setPage("Contact")}>Contact</Nav.Item>

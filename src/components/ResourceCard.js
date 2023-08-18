@@ -144,10 +144,10 @@ export function ResourceCard({ loggedIn, resource, type=[]}) {
         <p>{resource.Description}</p>
 
         <br></br>
-        
+
         <div className="bottomInfo">
           <div className="pill-row">
-            <div id="tag-row">
+            <div className="tag-row">
               <Tag>{resource.Course}</Tag>
               {arrayType.map(singleTag => <Tag>{singleTag}</Tag>)}
             </div>
@@ -161,7 +161,7 @@ export function ResourceCard({ loggedIn, resource, type=[]}) {
               <Tag color="black" size="md">{likeCount}</Tag>
             </div>
           </div>
-          <p>By: {resource.Contributor}</p>
+          <p className="contributor-name">By: {resource.Contributor}</p>
         </div>
       </Panel>
     </div>
