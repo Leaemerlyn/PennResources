@@ -3,13 +3,10 @@ import "rsuite/dist/rsuite.min.css";
 import { Navbar, Nav, Notification, useToaster } from 'rsuite';
 import { useState } from 'react';
 import { Resources } from './pages/Resources';
-import { Contribute } from './pages/Contribute';
 import { MyContributions } from './pages/MyContributions';
 import { Contact } from './pages/Contact';
 import { signInWithPopup, signOut} from "firebase/auth"
 import { auth, googleProvider } from "./config/firebase"
-import NavItem from 'rsuite/esm/Nav/NavItem';
-import { Welcome } from './components/Welcome';
 
 
 function App() {
@@ -22,7 +19,7 @@ function App() {
     <Notification type={"success"} header={"Success"}>
         <p>You have successfully logged out.</p>
     </Notification>
-);
+  );
 
   const signInWithGoogle = async () => {
     try {

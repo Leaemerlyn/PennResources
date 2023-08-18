@@ -9,6 +9,7 @@ export function ResourceCard({ loggedIn, resource, type=[]}) {
   const [hover, setHover] = useState(false);
   const [liked, setLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(resource.Likes);
+  
   const toaster = useToaster();
 
   useEffect(() => {
@@ -31,6 +32,9 @@ export function ResourceCard({ loggedIn, resource, type=[]}) {
               setLiked(true);
           }
         })
+      
+      // only logged-in users should have liked set to true
+      // to prevent red thumbs for non-logged-in users
       } else {
         setLiked(false);
       }

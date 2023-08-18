@@ -23,6 +23,9 @@ const formRequirements = Schema.Model({
     anonymity: Schema.Types.StringType().isRequired("Required"),
 })
 
+// represents the key that is used to remove the deletion confirmation popup
+var deleteKey = null;
+
 export function Edit ({setEditingResource, getContributions, type, title, course, module, link, description, anonymity, docID}) {
     const resourceTypeList = ["Video", "Reading", "Practice Problem"].map(item =>({label: item, value: item}));
     const yesOrNo = ["Yes", "No"].map(item =>({label: item, value: item}));
@@ -44,8 +47,6 @@ export function Edit ({setEditingResource, getContributions, type, title, course
     const [draft, setDraft] = useState(resource);
 
     const currContribution = doc(database, "resources", docID);
-
-    var deleteKey = null;
 
     const updateContribution = async() => {
         console.log(draft)
@@ -70,9 +71,9 @@ export function Edit ({setEditingResource, getContributions, type, title, course
 
     }
 
-    const cancelDelete = () => {
-        setEditingResource(false);
+    const removeDeleteConfirmation = () => {
         toaster.remove(deleteKey);
+        setEditingResource(false);
     }
 
     const cancelEdit = () => {
@@ -87,20 +88,22 @@ export function Edit ({setEditingResource, getContributions, type, title, course
                     await deleteDoc(doc(database, "resources", docID));
                     getContributions();
                     setEditingResource(false);
-                    cancelDelete();
+                    removeDeleteConfirmation();
                 }
-                }
+            }
             > Confirm </Button>
-            <Button onClick={cancelDelete}>Cancel</Button>
+            <Button onClick={() => {removeDeleteConfirmation();}}>Cancel</Button>
         </Notification>
     );
 
-    const showDeleteConfirmation = () => {
-        deleteKey = toaster.push(deleteConfirmation, {duration: 0});
+    const showDeleteConfirmation = async() => {
+        const k = await toaster.push(deleteConfirmation, {duration: 0});
+        deleteKey = k;
     };
 
     // onChange in the form will update the draft in useState as user edits
     return(
+
         <div className="contributeContainer">
             <h4>Editing Resource</h4>
             <Form fluid model={formRequirements} formValue={draft} onChange={formValue => setDraft(formValue)}>

@@ -6,8 +6,6 @@ import { Contribute } from './Contribute';
 import { ContributionList } from '../components/ContributionList';
 import { Edit } from "./Edit";
 
-
-
 export function MyContributions({loggedIn}) {
   const [contributionsList, setContributionsList] = useState([]);
   const [selectedCourse, setSelectedCourse] = useState(null);
@@ -84,9 +82,6 @@ export function MyContributions({loggedIn}) {
         ...contributionDoc.data(),
         id: contributionDoc.id
       }));
-
-      console.log('Setting contributions list to:')
-      console.log(userContributions);
   
       setContributionsList(userContributions);
     };
