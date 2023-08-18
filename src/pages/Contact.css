@@ -1,0 +1,14 @@
+#contact-container{
+    max-width: 800px;
+    margin: 50px auto;
+}
+
+#contact-header{
+    margin: 20px 0px;
+}
+
+#contact-card-group{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}

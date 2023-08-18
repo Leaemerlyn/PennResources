@@ -1,4 +1,5 @@
 import React from 'react';
+import "./Contact.css"
 import { Panel, PanelGroup, useToaster } from 'rsuite';
 
 export function Contact () {
@@ -6,17 +7,20 @@ export function Contact () {
     toaster.clear();
 
     return (
-        <>
-          <h3>
+        <div id="contact-container">
+          <h4 id="contact-header">
           Contact the Team 
-          </h3>
-          <PanelGroup>
-            <Panel header="Lea Emerlyn">
-              <p>
-                lemerlyn@seas.upenn.edu
-              </p>
+          </h4>
+          <div id="contact-card-group">
+            <Panel header="Lea Emerlyn" bordered>
+                <p>
+                  lemerlyn@seas.upenn.edu
+                </p>
+                <p>
+                  about me lol
+                </p>
             </Panel>
-            <Panel header="Leven Cai">
+            <Panel header="Leven Cai" bordered>
               <p>
                 levencai@seas.upenn.edu
               </p>
@@ -26,19 +30,19 @@ export function Contact () {
                 as long as I live. Gotta love the dirty subway, the city parks, and the food. 
               </p>
             </Panel>
-            <Panel header="Abdullah Amer">
+            <Panel header="Abdullah Amer" bordered>
                 <p>
                   abdamer@seas.upenn.edu
                 </p> 
             </Panel>
-            <Panel header="Ben Swanson">
+            <Panel header="Ben Swanson" bordered>
               <p>
               I joined MCIT in Fall 2022 after studying economics in undergrad, and I hope to transition from 
               my work in consulting to softwarre engeineering. I'm originally from Philly and I now  
               live in NYC. Feel free to reach out at bswan1@seas.upenn.edu, and thanks for using Penn Resources!
               </p>
             </Panel>
-          </PanelGroup>
-        </>
+          </div>
+        </div>
     )
 }

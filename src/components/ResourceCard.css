@@ -1,4 +1,11 @@
 .bottomInfo{
     display: flex;
     justify-content: space-between;
+    flex-direction: row;
+}
+
+.pill-row{
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
 }

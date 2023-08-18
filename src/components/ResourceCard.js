@@ -135,21 +135,31 @@ export function ResourceCard({ loggedIn, resource, type=[]}) {
   return (
     <div className="resourceCard">
       <Panel header={resource.Title}
-        bordered onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} shaded={hover} style={{ cursor: 'pointer' }} onClick={() => window.open(resource.Link, '_blank', 'noreferrer')}>
+        bordered 
+        onMouseEnter={() => setHover(true)} 
+        onMouseLeave={() => setHover(false)} 
+        shaded={hover} 
+        style={{ cursor: 'pointer' }} 
+        onClick={() => window.open(resource.Link, '_blank', 'noreferrer')}>
         <p>{resource.Description}</p>
+
         <br></br>
-        <div className="bottomInfo" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div id="tagList">
-            {arrayType.map(singleTag => <Tag>{singleTag}</Tag>)}
-            <Tag>{resource.Course}</Tag>
-            <IconButton icon={
-            <div>
-              {liked ? <FaThumbsUp style={{color:'red', size: '0.8em'}}/> : <FaThumbsUp size='0.8em' />}
+        
+        <div className="bottomInfo">
+          <div className="pill-row">
+            <div id="tag-row">
+              <Tag>{resource.Course}</Tag>
+              {arrayType.map(singleTag => <Tag>{singleTag}</Tag>)}
             </div>
-            }
-            size="xs" onClick={changeLikeCount} 
-            />
-            <Tag color="black" size="md">{likeCount}</Tag>
+
+            <div id="like-row">
+              <IconButton 
+                  icon={liked ? <FaThumbsUp style={{color:'red'}}/> :<FaThumbsUp size='0.8em' />}
+                  size="xs" 
+                  onClick={changeLikeCount} 
+                />
+              <Tag color="black" size="md">{likeCount}</Tag>
+            </div>
           </div>
           <p>By: {resource.Contributor}</p>
         </div>
