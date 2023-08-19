@@ -6,7 +6,7 @@ import { Contribute } from './Contribute';
 import { ContributionList } from '../components/ContributionList';
 import { Edit } from "./Edit";
 
-export function MyContributions({loggedIn}) {
+export function MyContributions({ loggedIn }) {
   const [contributionsList, setContributionsList] = useState([]);
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [selectedModule, setSelectedModule] = useState(null);

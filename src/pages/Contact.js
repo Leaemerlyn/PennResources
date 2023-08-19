@@ -1,10 +1,19 @@
 import React from 'react';
 import "./Contact.css"
-import { Panel, PanelGroup, useToaster } from 'rsuite';
+import { Panel, useToaster } from 'rsuite';
+import { useEffect } from 'react';
+import { popUpKey } from '../popUpKey';
 
-export function Contact () {
+export function Contact ( page ) {
     const toaster = useToaster();
-    toaster.clear();
+
+    useEffect(() => {
+      const removePopUp = () => {
+        toaster.remove(popUpKey.get("delete"))
+      };
+  
+      removePopUp();
+    }, [page])
 
     return (
         <div id="contact-container">

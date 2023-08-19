@@ -2,8 +2,9 @@ import { Button, ButtonToolbar, CheckPicker, Input, InputPicker, Form, Schema, N
 import "./Contribute.css"
 import { database } from '../config/firebase';
 import { doc, updateDoc, deleteDoc } from 'firebase/firestore';
-import { useState, forwardRef } from 'react';
+import { useState, forwardRef, useEffect } from 'react';
 import { moduleOptions, courseOptions } from '../util';
+import { popUpKey, setDeleteKey } from '../popUpKey';
 
 // forwardRef allows the Input component to be used in the Form below
 // not sure how it works
@@ -22,9 +23,6 @@ const formRequirements = Schema.Model({
     description: Schema.Types.StringType().isRequired("Required"),
     anonymity: Schema.Types.StringType().isRequired("Required"),
 })
-
-// represents the key that is used to remove the deletion confirmation popup
-var deleteKey = null;
 
 export function Edit ({setEditingResource, getContributions, type, title, course, module, link, description, anonymity, docID}) {
     const resourceTypeList = ["Video", "Reading", "Practice Problem"].map(item =>({label: item, value: item}));
@@ -72,12 +70,12 @@ export function Edit ({setEditingResource, getContributions, type, title, course
     }
 
     const removeDeleteConfirmation = () => {
-        toaster.remove(deleteKey);
+        toaster.remove(popUpKey.get("delete"));
         setEditingResource(false);
     }
 
     const cancelEdit = () => {
-        toaster.remove(deleteKey);
+        toaster.remove(popUpKey.get("delete"));
         setEditingResource(false);
     }
 
@@ -99,7 +97,7 @@ export function Edit ({setEditingResource, getContributions, type, title, course
 
     const showDeleteConfirmation = async() => {
         const k = await toaster.push(deleteConfirmation, {duration: 0});
-        deleteKey = k;
+        setDeleteKey(k);
     };
 
     // onChange in the form will update the draft in useState as user edits

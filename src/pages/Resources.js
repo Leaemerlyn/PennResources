@@ -6,8 +6,9 @@ import { database } from '../config/firebase';
 import { collection, query, where, getDocs } from "firebase/firestore";
 import "./Resources.css";
 import { courseOptions, moduleOptions } from '../util';
+import { popUpKey } from '../popUpKey';
 
-export function Resources( loggedIn ) {
+export function Resources( loggedIn, page ) {
   const [selectedCourse, setSelectedCourse] = useState([]);
   const [selectedModule, setSelectedModule] = useState([]);
   const [courseList, setCourseList] = useState([]);
@@ -15,7 +16,14 @@ export function Resources( loggedIn ) {
   const coursesCollectionRef = collection(database, "resources");
 
   const toaster = useToaster();
-  toaster.clear();
+
+  useEffect(() => {
+    const removePopUp = () => {
+      toaster.remove(popUpKey.get("delete"));
+    };
+
+    removePopUp();
+  }, [page])
 
   useEffect(() => {
     const getCourseList = async () => {
@@ -48,11 +56,11 @@ export function Resources( loggedIn ) {
   }, [selectedCourse, selectedModule]);
 
   const renderResourceCards = (courses) => {
-    if (courses.length == 0){
-      return (<p id="no-resource-message">there are no resources with these criteria. Why don't you add one? </p>)
+    if (courses.length === 0){
+      return (<p id="no-resource-message">There are no resources with these criteria. Why don't you add one?</p>)
     } else{
       return courses.map((course) => (
-        <ResourceCard key={course.id} loggedIn={loggedIn} resource={course} type={course.Type}/>))
+        <ResourceCard key={course.id} loggedIn={loggedIn} resource={course} type={course.Type} />))
     }
   }
 

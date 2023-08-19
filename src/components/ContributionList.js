@@ -5,8 +5,6 @@ import { NoResource } from './NoResource';
 
 export function ContributionList ({setSelectedModule, setSelectedCourse, setResourceIdToEdit, selectedCourse, selectedModule, contributionsList, getContributions, setAddingResource}) {
 
-    console.log(contributionsList);
-
     const handleCourseFilter = (value) => {
         setSelectedCourse(value);
     };

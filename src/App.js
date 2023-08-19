@@ -7,12 +7,12 @@ import { MyContributions } from './pages/MyContributions';
 import { Contact } from './pages/Contact';
 import { signInWithPopup, signOut} from "firebase/auth"
 import { auth, googleProvider } from "./config/firebase"
-
+import { popUpKey, setDeleteKey, setSignOutKey } from './popUpKey';
 
 function App() {
   const [page, setPage] = useState("Resources");
   const [loggedIn, setLoggedIn] = useState(false);
-
+  
   const toaster = useToaster();
 
   const signOutSuccess = (
@@ -33,9 +33,9 @@ function App() {
   const signOutOfAccount = async () => {
     try {
       await signOut(auth);
+      setSignOutKey(toaster.push(signOutSuccess, {duration: 3000}));
       setLoggedIn(false);
       setPage("Resources");
-      toaster.push(signOutSuccess, {duration: 3000});
     } catch (err){
       console.log(err);
     }
@@ -60,9 +60,9 @@ function App() {
       </Nav>
     </Navbar>
 
-    {page === "Resources" ? <Resources loggedIn={loggedIn} />: <div></div>}
-    {page === "My-Contributions" ? <MyContributions loggedIn={loggedIn}/>: <div></div>}
-    {page === "Contact" ? <Contact/> : <div></div>}
+    {page === "Resources" ? <Resources loggedIn={loggedIn} page={page} />: <div></div>}
+    {page === "My-Contributions" ? <MyContributions loggedIn={loggedIn} />: <div></div>}
+    {page === "Contact" ? <Contact page={page} /> : <div></div>}
     </>
     
   );
