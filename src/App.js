@@ -7,7 +7,7 @@ import { MyContributions } from './pages/MyContributions';
 import { Contact } from './pages/Contact';
 import { signInWithPopup, signOut} from "firebase/auth"
 import { auth, googleProvider } from "./config/firebase"
-import { popUpKey, setDeleteKey, setSignOutKey } from './popUpKey';
+import { setSignOutKey } from './popUpKey';
 
 function App() {
   const [page, setPage] = useState("Resources");
