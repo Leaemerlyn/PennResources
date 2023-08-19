@@ -7,7 +7,7 @@ import { MyContributions } from './pages/MyContributions';
 import { Contact } from './pages/Contact';
 import { signInWithPopup, signOut} from "firebase/auth"
 import { auth, googleProvider } from "./config/firebase"
-import { setSignOutKey } from './popUpKey';
+import { setSignOutKey, setSignInKey } from './popUpKey';
 
 function App() {
   const [page, setPage] = useState("Resources");
@@ -21,9 +21,16 @@ function App() {
     </Notification>
   );
 
+  const signInSuccess = (
+    <Notification type={"success"} header={"Success"}>
+        <p>You have successfully logged in.</p>
+    </Notification>
+  );
+
   const signInWithGoogle = async () => {
     try {
       await signInWithPopup(auth,googleProvider);
+      setSignInKey(toaster.push(signInSuccess, {duration: 3000}));
       setLoggedIn(true);
     } catch (err){
       console.log(err);

@@ -7,3 +7,7 @@ export const setDeleteKey = (newKey) => {
 export const setSignOutKey = (newKey) => {
     popUpKey.set("signout", newKey)
 }
+
+export const setSignInKey = (newKey) => {
+    popUpKey.set("signin", newKey)
+}
