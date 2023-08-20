@@ -149,6 +149,7 @@ export function ResourceCard({ loggedIn, resource, type=[] }) {
           <div className="pill-row">
             <div className="tag-row">
               <Tag>{resource.Course}</Tag>
+              <Tag>{resource.Module}</Tag>
               {arrayType.map(singleTag => <Tag>{singleTag}</Tag>)}
             </div>
 
