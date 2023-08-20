@@ -1,8 +1,6 @@
-import { Button, Panel, Placeholder, Tag } from "rsuite";
+import { Panel, Tag } from "rsuite";
 import "./ResourceCard.css"
-import { useState } from "react";
 import EditIcon from '@rsuite/icons/Edit'
-import { Edit } from "../pages/Edit";
 
 export function ContributionCard ({link, description, title, type, openEditPage, anonymity, module, course}) {
 
