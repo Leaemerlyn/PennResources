@@ -27,13 +27,13 @@ export function Contribute ({setAddingResource, getContributions}) {
 
     // initialize states to store the user inputs
     // the set functions are used as the onChange functions in the components below
-    const [courseSelection, setCourseSelection] = useState("");
-    const [moduleSelection, setModuleSelection] = useState("");
-    const [URL, setURL] = useState("");
-    const [type, setType] = useState("");
-    const [description, setDescription] = useState("");
-    const [title, setTitle] = useState("");
-    const [showName, setShowName] = useState("");
+    const [courseSelection, setCourseSelection] = useState(null);
+    const [moduleSelection, setModuleSelection] = useState(null);
+    const [URL, setURL] = useState(null);
+    const [type, setType] = useState([]);
+    const [description, setDescription] = useState(null);
+    const [title, setTitle] = useState(null);
+    const [showName, setShowName] = useState(null);
 
     // get the current user to get their email, name, and uid
     var currentUser = auth.currentUser;
@@ -41,9 +41,10 @@ export function Contribute ({setAddingResource, getContributions}) {
     // adds a document to the database using the states saved above
     // Edited to allow for anonymous submission
     const saveEntry = async() => {
-        // only adds the document if everything is filled out
-        if (courseSelection !== "" && moduleSelection !== "" && URL.startsWith("https://") && 
-        type !== "" && description !== "" && title !== "" && showName !== "") {
+
+        // only adds the document if everything is filled out and every entry is valid
+        if (courseSelection !== "" && courseSelection !== null && moduleSelection !== "" && moduleSelection !== null && URL.startsWith("https://") && type.length !== 0 
+        && description !== "" && description !== null && title !== "" && title !== null && showName !== "" && showName !== null) {
             addDoc(collection(database, "resources"), {
             Contributor: currentUser.displayName,
             Course: courseSelection,
