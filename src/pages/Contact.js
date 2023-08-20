@@ -9,7 +9,9 @@ export function Contact ( page ) {
 
     useEffect(() => {
       const removePopUp = () => {
-        toaster.remove(popUpKey.get("delete"))
+        if (popUpKey.has("delete")) {
+          toaster.remove(popUpKey.get("delete"));
+        }
       };
   
       removePopUp();
