@@ -36,7 +36,7 @@ export function Contribute ({setAddingResource, getContributions}) {
     const [type, setType] = useState("");
     const [description, setDescription] = useState("");
     const [title, setTitle] = useState("");
-    const [anonymity, setAnonymity] = useState("");
+    const [showName, setShowName] = useState("");
 
     // get the current user to get their email, name, and uid
     var currentUser = auth.currentUser;
@@ -46,9 +46,9 @@ export function Contribute ({setAddingResource, getContributions}) {
     const saveEntry = async() => {
         // only adds the document if everything is filled out
         if (courseSelection !== "" && moduleSelection !== "" && URL.startsWith("https://") && 
-        type !== "" && description !== "" && title !== "" && anonymity !== "") {
+        type !== "" && description !== "" && title !== "" && showName !== "") {
             addDoc(collection(database, "resources"), {
-            Contributor: anonymity === "No" ? "Anonymous" : currentUser.displayName,
+            Contributor: currentUser.displayName,
             Course: courseSelection,
             Description: description,
             Title: title,
@@ -56,7 +56,7 @@ export function Contribute ({setAddingResource, getContributions}) {
             Module: moduleSelection,
             Type: type,
             uid: currentUser.uid,
-            Anonymity: anonymity,
+            ShowName: showName,
             Likers: [],
             Likes: 0
             })
@@ -86,7 +86,7 @@ export function Contribute ({setAddingResource, getContributions}) {
                 </Form.Group>
 
                 <Form.Group controlId="anonymity">
-                    <Form.Control name="anonymity" placeholder="Show name in post?" accepter={InputPicker} data={yesOrNo} onChange={setAnonymity} isRequired/>
+                    <Form.Control name="anonymity" placeholder="Show name in post?" accepter={InputPicker} data={yesOrNo} onChange={setShowName} isRequired/>
                 </Form.Group>
 
                 <Form.Group controlId="title">

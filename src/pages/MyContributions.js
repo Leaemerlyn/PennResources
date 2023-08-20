@@ -104,7 +104,7 @@ export function MyContributions({ loggedIn }) {
             module={contributionToEdit.Module}
             link={contributionToEdit.Link}
             description={contributionToEdit.Description}
-            anonymity={contributionToEdit.Anonymity}
+            showName={contributionToEdit.ShowName}
             docID={contributionToEdit.id}
             />
 

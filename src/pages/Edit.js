@@ -24,7 +24,7 @@ const formRequirements = Schema.Model({
     anonymity: Schema.Types.StringType().isRequired("Required"),
 })
 
-export function Edit ({setEditingResource, getContributions, type, title, course, module, link, description, anonymity, docID}) {
+export function Edit ({setEditingResource, getContributions, type, title, course, module, link, description, showName, docID}) {
     const resourceTypeList = ["Video", "Reading", "Practice Problem"].map(item =>({label: item, value: item}));
     const yesOrNo = ["Yes", "No"].map(item =>({label: item, value: item}));
 
@@ -38,7 +38,7 @@ export function Edit ({setEditingResource, getContributions, type, title, course
         module: module,
         link: link,
         description: description,
-        anonymity: anonymity
+        showName: showName
     }
 
     // use useState to change the resource data as user edits 
@@ -47,11 +47,10 @@ export function Edit ({setEditingResource, getContributions, type, title, course
     const currContribution = doc(database, "resources", docID);
 
     const updateContribution = async() => {
-        console.log(draft)
         
         // only updates if all fields are filled
         if (draft.course !== "" && draft.module !== "" && draft.link.startsWith("https://") && draft.type !== "" &&
-        draft.description !== "" && draft.title !== "" && draft.anonymity !== "") {
+        draft.description !== "" && draft.title !== "" && draft.showName !== "") {
         await updateDoc(currContribution, {
             Course: draft.course,
             Module: draft.module,
@@ -59,7 +58,7 @@ export function Edit ({setEditingResource, getContributions, type, title, course
             Type: draft.resourceType,
             Description: draft.description,
             Title: draft.title,
-            Anonymity: draft.anonymity
+            ShowName: draft.showName
         })
 
         setEditingResource(false);
@@ -107,31 +106,31 @@ export function Edit ({setEditingResource, getContributions, type, title, course
             <Form fluid model={formRequirements} formValue={draft} onChange={formValue => setDraft(formValue)}>
 
                 <Form.Group controlID="course">
-                    <Form.Control name="course" placeholder={course} accepter={InputPicker} data={courseOptions}/>
+                    <Form.Control name="course" accepter={InputPicker} data={courseOptions}/>
                 </Form.Group>
 
                 <Form.Group controlID="module">
-                    <Form.Control name="module" placeholder={module} accepter={InputPicker} data={moduleOptions}/>
+                    <Form.Control name="module" accepter={InputPicker} data={moduleOptions}/>
                 </Form.Group>
 
                 <Form.Group controlID="resourceType">
-                    <Form.Control name="resourceType" placeholder={type} accepter={CheckPicker} data={resourceTypeList}/>
+                    <Form.Control name="resourceType" accepter={CheckPicker} data={resourceTypeList}/>
                 </Form.Group>
 
-                <Form.Group controlId="anonymity">
-                    <Form.Control name="anonymity" placeholder={anonymity} accepter={InputPicker} data={yesOrNo}/>
+                <Form.Group controlId="showName">
+                    <Form.Control name="showName" accepter={InputPicker} data={yesOrNo}/>
                 </Form.Group>
 
                 <Form.Group controlId="title">
-                    <Form.Control name="title" placeholder={title}/>
+                    <Form.Control name="title"/>
                 </Form.Group>
 
                 <Form.Group controlId="link">
-                    <Form.Control name="link" placeholder={link}/>
+                    <Form.Control name="link"/>
                 </Form.Group>
 
                 <Form.Group controlId="description">
-                    <Form.Control name="description" rows={5} placeholder={description} accepter={descriptionBox}/>
+                    <Form.Control name="description" rows={5} accepter={descriptionBox}/>
                 </Form.Group>
 
                 <ButtonToolbar>

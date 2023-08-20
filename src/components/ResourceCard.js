@@ -161,7 +161,7 @@ export function ResourceCard({ loggedIn, resource, type=[] }) {
               <Tag color="black" size="md">{likeCount}</Tag>
             </div>
           </div>
-          <p className="contributor-name">By: {resource.Contributor}</p>
+          <p className="contributor-name">By: {(resource.ShowName === "No") ? "Anonymous" : resource.Contributor}</p>
         </div>
       </Panel>
     </div>
