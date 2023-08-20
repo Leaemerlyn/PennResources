@@ -2,7 +2,7 @@ import { Button, ButtonToolbar, CheckPicker, Input, InputPicker, Form, Schema, N
 import "./Contribute.css"
 import { database } from '../config/firebase';
 import { doc, updateDoc, deleteDoc } from 'firebase/firestore';
-import { useState, forwardRef, useEffect } from 'react';
+import { useState, forwardRef } from 'react';
 import { moduleOptions, courseOptions } from '../util';
 import { popUpKey, setDeleteKey } from '../popUpKey';
 
@@ -86,7 +86,6 @@ export function Edit ({setEditingResource, getContributions, type, title, course
                 async() => {
                     await deleteDoc(doc(database, "resources", docID));
                     getContributions();
-                    setEditingResource(false);
                     removeDeleteConfirmation();
                 }
             }

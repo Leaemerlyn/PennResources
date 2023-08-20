@@ -1,7 +1,7 @@
 import './App.css';
 import "rsuite/dist/rsuite.min.css";
 import { Navbar, Nav, Notification, useToaster } from 'rsuite';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Resources } from './pages/Resources';
 import { MyContributions } from './pages/MyContributions';
 import { Contact } from './pages/Contact';
