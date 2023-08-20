@@ -25,7 +25,7 @@ const formRequirements = Schema.Model({
 
 export function Contribute ({setAddingResource, getContributions}) {
 
-    const resourceTypeList = ["Video", "Reading", "Practice Problem"].map(item =>({label: item, value: item}));
+    const resourceTypeList = ["Video", "Reading", "Practice Problem", "Other"].map(item =>({label: item, value: item}));
     const yesOrNo = ["Yes", "No"].map(item =>({label: item, value: item}));
 
     // initialize states to store the user inputs

@@ -25,7 +25,7 @@ const formRequirements = Schema.Model({
 })
 
 export function Edit ({setEditingResource, getContributions, type, title, course, module, link, description, showName, docID}) {
-    const resourceTypeList = ["Video", "Reading", "Practice Problem"].map(item =>({label: item, value: item}));
+    const resourceTypeList = ["Video", "Reading", "Practice Problem", "Other"].map(item =>({label: item, value: item}));
     const yesOrNo = ["Yes", "No"].map(item =>({label: item, value: item}));
 
     const toaster = useToaster();
