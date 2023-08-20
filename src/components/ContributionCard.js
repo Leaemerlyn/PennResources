@@ -2,7 +2,7 @@ import { Panel, Tag } from "rsuite";
 import "./ResourceCard.css"
 import EditIcon from '@rsuite/icons/Edit'
 
-export function ContributionCard ({link, description, title, type, openEditPage, anonymity, module, course}) {
+export function ContributionCard ({link, description, title, type, openEditPage, showName, module, course}) {
 
     const arrayType = [];
     for (const one of type){
@@ -19,7 +19,7 @@ export function ContributionCard ({link, description, title, type, openEditPage,
                     {arrayType.map(singleTag => <Tag>{singleTag}</Tag>)}
                     <Tag>{course}</Tag>
                     <Tag>{module}</Tag>
-                    <Tag>Show Name on Post: {anonymity}</Tag>
+                    <Tag>Show Name on Post: {showName}</Tag>
                 </div>
                 <EditIcon onClick={() => {openEditPage()}} style={{ fontSize: "1.3em", cursor:'pointer'}} />
             </div>

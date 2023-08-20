@@ -21,7 +21,7 @@ const formRequirements = Schema.Model({
         .pattern(new RegExp("https://[\\S]*"), "Link must start with https://"),
     resourceType: Schema.Types.ArrayType().isRequired("Required"),
     description: Schema.Types.StringType().isRequired("Required"),
-    anonymity: Schema.Types.StringType().isRequired("Required"),
+    showName: Schema.Types.StringType().isRequired("Required"),
 })
 
 export function Edit ({setEditingResource, getContributions, type, title, course, module, link, description, showName, docID}) {

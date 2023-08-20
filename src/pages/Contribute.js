@@ -20,7 +20,7 @@ const formRequirements = Schema.Model({
         .pattern(new RegExp("https://[\\S]*"), "Link must start with https://"),
     resourceType: Schema.Types.ArrayType().isRequired("Required"),
     description: Schema.Types.StringType().isRequired("Required"),
-    anonymity: Schema.Types.StringType().isRequired("Required"),
+    showName: Schema.Types.StringType().isRequired("Required"),
 })
 
 export function Contribute ({setAddingResource, getContributions}) {
@@ -85,8 +85,8 @@ export function Contribute ({setAddingResource, getContributions}) {
                     <Form.Control name="resourceType" placeholder="Type of Resource" accepter={CheckPicker} data={resourceTypeList} onChange={setType} isRequired/>
                 </Form.Group>
 
-                <Form.Group controlId="anonymity">
-                    <Form.Control name="anonymity" placeholder="Show name in post?" accepter={InputPicker} data={yesOrNo} onChange={setShowName} isRequired/>
+                <Form.Group controlId="showName">
+                    <Form.Control name="showName" placeholder="Show name in post?" accepter={InputPicker} data={yesOrNo} onChange={setShowName} isRequired/>
                 </Form.Group>
 
                 <Form.Group controlId="title">
