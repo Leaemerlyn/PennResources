@@ -12,13 +12,13 @@ export function Welcome () {
           <PanelGroup>
             <Panel header="Navigation">
               <p>
-              Select a course and a module to find supplemental resources
-              to help strengthen your understanding of course material
+              Use the course and module dropdown to find supplemental resources
+              to help strengthen your understanding of course material. To upvote a specific resource, click the thumbs up button. This will allow other students to know which resources are the most helpful. 
               </p>
             </Panel>
             <Panel header="Adding a Resource" bordered>
               <p>
-              To help other students, please add resources that helped you learn course material.
+              To help other students, please add resources that helped you learn course material. Login to your account and click on your profile. In the dropdown, click on My Contributions. Here you can add, delete and edit your resources. 
               These can include YouTube videos, articles, textbooks, or anything else that you found online that made course material easier to understand.
                 </p>
             </Panel>

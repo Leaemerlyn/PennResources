@@ -26,7 +26,7 @@ export function Contact ( page ) {
                   lemerlyn@seas.upenn.edu
                 </p>
                 <p>
-                  about me lol
+                  Thanks for visiting the page! I currently work as a creative technologist building full stack web apps for UX Designers. I studied Human-Computer Interaction and Media Design at Carnegie Mellon. I'm grew up in NYC and love it here in the east coast. 
                 </p>
             </Panel>
             <Panel header="Leven Cai" bordered>
@@ -47,7 +47,7 @@ export function Contact ( page ) {
             <Panel header="Ben Swanson" bordered>
               <p>
               I joined MCIT in Fall 2022 after studying economics in undergrad, and I hope to transition from 
-              my work in consulting to softwarre engeineering. I'm originally from Philly and I now  
+              my work in consulting to software engeineering. I'm originally from Philly and I now  
               live in NYC. Feel free to reach out at bswan1@seas.upenn.edu, and thanks for using Penn Resources!
               </p>
             </Panel>

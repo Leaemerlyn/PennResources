@@ -81,8 +81,8 @@ export function Edit ({setEditingResource, getContributions, type, title, course
 
     const deleteConfirmation = (
         <Notification type={"warning"} header={"Warning"}>
-            <p>Deleting a resource is permanent. Please confirm or cancel.</p>
-            <Button color = 'red' appearance = 'primary' onClick={
+            <p style={{marginBottom: "8px"}}>Deleting a resource is permanent. Please confirm or cancel.</p>
+            <Button style={{marginRight: "8px"}} color = 'red' appearance = 'primary' onClick={
                 async() => {
                     await deleteDoc(doc(database, "resources", docID));
                     getContributions();
@@ -91,7 +91,7 @@ export function Edit ({setEditingResource, getContributions, type, title, course
                 }
             }
             > Confirm </Button>
-            <Button onClick={() => {removeDeleteConfirmation();}}>Cancel</Button>
+            <Button onClick={() => {removeDeleteConfirmation();}} appearance='ghost'>Cancel</Button>
         </Notification>
     );
 
