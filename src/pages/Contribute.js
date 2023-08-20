@@ -3,7 +3,7 @@ import "./Contribute.css"
 import { database, auth } from '../config/firebase';
 import { collection, addDoc } from 'firebase/firestore';
 import { useState, forwardRef} from 'react';
-import { courseOptions, moduleOptions } from '../util';
+import { courseOptions, moduleOptions, resourceTypeList, yesOrNo } from '../util';
 
 // forwardRef allows the Input component to be used in the Form below
 // not sure how it works
@@ -24,9 +24,6 @@ const formRequirements = Schema.Model({
 })
 
 export function Contribute ({setAddingResource, getContributions}) {
-
-    const resourceTypeList = ["Video", "Reading", "Practice Problem", "Other"].map(item =>({label: item, value: item}));
-    const yesOrNo = ["Yes", "No"].map(item =>({label: item, value: item}));
 
     // initialize states to store the user inputs
     // the set functions are used as the onChange functions in the components below

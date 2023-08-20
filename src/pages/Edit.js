@@ -3,7 +3,7 @@ import "./Contribute.css"
 import { database } from '../config/firebase';
 import { doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { useState, forwardRef } from 'react';
-import { moduleOptions, courseOptions } from '../util';
+import { moduleOptions, courseOptions, resourceTypeList, yesOrNo } from '../util';
 import { popUpKey, setDeleteKey } from '../popUpKey';
 
 // forwardRef allows the Input component to be used in the Form below
@@ -25,8 +25,6 @@ const formRequirements = Schema.Model({
 })
 
 export function Edit ({setEditingResource, getContributions, type, title, course, module, link, description, showName, docID}) {
-    const resourceTypeList = ["Video", "Reading", "Practice Problem", "Other"].map(item =>({label: item, value: item}));
-    const yesOrNo = ["Yes", "No"].map(item =>({label: item, value: item}));
 
     const toaster = useToaster();
 
