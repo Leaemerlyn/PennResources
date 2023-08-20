@@ -3,7 +3,7 @@ import "./Contribute.css"
 import { database, auth } from '../config/firebase';
 import { collection, addDoc } from 'firebase/firestore';
 import { useState, forwardRef} from 'react';
-import { courseOptions, moduleOptions } from '../util';
+import { courseOptions, moduleOptions, resourceTypeList, yesOrNo } from '../util';
 
 // forwardRef allows the Input component to be used in the Form below
 // not sure how it works
@@ -20,23 +20,20 @@ const formRequirements = Schema.Model({
         .pattern(new RegExp("https://[\\S]*"), "Link must start with https://"),
     resourceType: Schema.Types.ArrayType().isRequired("Required"),
     description: Schema.Types.StringType().isRequired("Required"),
-    anonymity: Schema.Types.StringType().isRequired("Required"),
+    showName: Schema.Types.StringType().isRequired("Required"),
 })
 
 export function Contribute ({setAddingResource, getContributions}) {
 
-    const resourceTypeList = ["Video", "Reading", "Practice Problem"].map(item =>({label: item, value: item}));
-    const yesOrNo = ["Yes", "No"].map(item =>({label: item, value: item}));
-
     // initialize states to store the user inputs
     // the set functions are used as the onChange functions in the components below
-    const [courseSelection, setCourseSelection] = useState("");
-    const [moduleSelection, setModuleSelection] = useState("");
-    const [URL, setURL] = useState("");
-    const [type, setType] = useState("");
-    const [description, setDescription] = useState("");
-    const [title, setTitle] = useState("");
-    const [showName, setShowName] = useState("");
+    const [courseSelection, setCourseSelection] = useState(null);
+    const [moduleSelection, setModuleSelection] = useState(null);
+    const [URL, setURL] = useState(null);
+    const [type, setType] = useState([]);
+    const [description, setDescription] = useState(null);
+    const [title, setTitle] = useState(null);
+    const [showName, setShowName] = useState(null);
 
     // get the current user to get their email, name, and uid
     var currentUser = auth.currentUser;
@@ -44,9 +41,10 @@ export function Contribute ({setAddingResource, getContributions}) {
     // adds a document to the database using the states saved above
     // Edited to allow for anonymous submission
     const saveEntry = async() => {
-        // only adds the document if everything is filled out
-        if (courseSelection !== "" && moduleSelection !== "" && URL.startsWith("https://") && 
-        type !== "" && description !== "" && title !== "" && showName !== "") {
+
+        // only adds the document if everything is filled out and every entry is valid
+        if (courseSelection !== "" && courseSelection !== null && moduleSelection !== "" && moduleSelection !== null && URL.startsWith("https://") && type.length !== 0 
+        && description !== "" && description !== null && title !== "" && title !== null && showName !== "" && showName !== null) {
             addDoc(collection(database, "resources"), {
             Contributor: currentUser.displayName,
             Course: courseSelection,
@@ -85,8 +83,8 @@ export function Contribute ({setAddingResource, getContributions}) {
                     <Form.Control name="resourceType" placeholder="Type of Resource" accepter={CheckPicker} data={resourceTypeList} onChange={setType} isRequired/>
                 </Form.Group>
 
-                <Form.Group controlId="anonymity">
-                    <Form.Control name="anonymity" placeholder="Show name in post?" accepter={InputPicker} data={yesOrNo} onChange={setShowName} isRequired/>
+                <Form.Group controlId="showName">
+                    <Form.Control name="showName" placeholder="Show name in post?" accepter={InputPicker} data={yesOrNo} onChange={setShowName} isRequired/>
                 </Form.Group>
 
                 <Form.Group controlId="title">

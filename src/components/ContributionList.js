@@ -47,7 +47,7 @@ export function ContributionList ({setSelectedModule, setSelectedCourse, setReso
                     link={contribution.Link}
                     description={contribution.Description}
                     title={contribution.Title}
-                    anonymity={contribution.Anonymity}
+                    showName={contribution.ShowName}
                     type={contribution.Type}
                     docID={contribution.id}
                     openEditPage={()=> handleOpenEditPage(contribution.id)}

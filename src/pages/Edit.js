@@ -3,7 +3,7 @@ import "./Contribute.css"
 import { database } from '../config/firebase';
 import { doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { useState, forwardRef } from 'react';
-import { moduleOptions, courseOptions } from '../util';
+import { moduleOptions, courseOptions, resourceTypeList, yesOrNo } from '../util';
 import { popUpKey, setDeleteKey } from '../popUpKey';
 
 // forwardRef allows the Input component to be used in the Form below
@@ -21,12 +21,10 @@ const formRequirements = Schema.Model({
         .pattern(new RegExp("https://[\\S]*"), "Link must start with https://"),
     resourceType: Schema.Types.ArrayType().isRequired("Required"),
     description: Schema.Types.StringType().isRequired("Required"),
-    anonymity: Schema.Types.StringType().isRequired("Required"),
+    showName: Schema.Types.StringType().isRequired("Required"),
 })
 
 export function Edit ({setEditingResource, getContributions, type, title, course, module, link, description, showName, docID}) {
-    const resourceTypeList = ["Video", "Reading", "Practice Problem"].map(item =>({label: item, value: item}));
-    const yesOrNo = ["Yes", "No"].map(item =>({label: item, value: item}));
 
     const toaster = useToaster();
 
@@ -48,22 +46,22 @@ export function Edit ({setEditingResource, getContributions, type, title, course
 
     const updateContribution = async() => {
         
-        // only updates if all fields are filled
-        if (draft.course !== "" && draft.module !== "" && draft.link.startsWith("https://") && draft.type !== "" &&
-        draft.description !== "" && draft.title !== "" && draft.showName !== "") {
-        await updateDoc(currContribution, {
-            Course: draft.course,
-            Module: draft.module,
-            Link: draft.link,
-            Type: draft.resourceType,
-            Description: draft.description,
-            Title: draft.title,
-            ShowName: draft.showName
-        })
+        // only updates if all fields are filled and every entry is valid
+        if (draft.course !== "" && draft.course !== null && draft.module !== "" && draft.module != null && draft.link.startsWith("https://") && draft.resourceType.length !== 0 && 
+        draft.resourceType != null && draft.description !== "" && draft.description != null && draft.title !== "" && draft.title != null && draft.showName !== "" && draft.showName != null) {
+            await updateDoc(currContribution, {
+                Course: draft.course,
+                Module: draft.module,
+                Link: draft.link,
+                Type: draft.resourceType,
+                Description: draft.description,
+                Title: draft.title,
+                ShowName: draft.showName
+            })
 
-        setEditingResource(false);
+            setEditingResource(false);
 
-        getContributions();
+            getContributions();
         }
 
     }
