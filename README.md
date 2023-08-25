@@ -10,7 +10,7 @@ Include the link to your Devpost project page here: [Devpost](https://devpost.co
 ### Authors
 
 * **Lea Emerlyn** -leaodovia – lemerlyn@seas.upenn.edu – [GitHub](https://github.com/Leaemerlyn)
-* **Ben Swanson** - Devpost ID – bswan1@seas.upenn.edu – [GitHub](https://github.com/user_name)
+* **Ben Swanson** - bswan1 – bswan1@seas.upenn.edu – [GitHub](https://github.com/benmswanson)
 * **Leven Cai** - levencai – levencai@seas.upenn.edu – [GitHub](https://github.com/208cai5099)
 * **Abdullah Amer** - Devpost ID - abdamer@seas.upenn.edu - [GitHub](https://github.com/user_name)
 
