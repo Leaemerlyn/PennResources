@@ -24,13 +24,10 @@ This is why we created Penn Resources, a site where students can share and descr
 
 There are no prerequisites to using the site. However, if you want to contribute a resource, you must have a @seas.upenn.edu email. This is to ensure that only Penn students can contribute resources. 
 
-```
-Provide code samples in this fenced code block.
-```
-
 ### Installation
 
-Give a step-by-step rundown of how to **install** your project.
+We created a web app, and users can visit the site with this link: 
+https://pennresources.web.app/
 
 To install dependencies, run 
 
