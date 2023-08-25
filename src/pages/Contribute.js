@@ -6,7 +6,6 @@ import { useState, forwardRef} from 'react';
 import { courseOptions, moduleOptions, resourceTypeList, yesOrNo } from '../util';
 
 // forwardRef allows the Input component to be used in the Form below
-// not sure how it works
 const descriptionBox = forwardRef((props, ref) => <Input {...props} as="textarea" ref={ref}/>);
 
 // this sets up the rule for each field
