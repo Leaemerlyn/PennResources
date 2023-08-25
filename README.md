@@ -1,25 +1,28 @@
 # Welcome to Penn Resources
 ## Overview
 ### Project summary
-This tool is meant for MCIT Online students who are looking for supplemental resources for course material. In the site, users can select a course and a module within that course, and it will display all of the available resources that other students have posted. Users can also see their own contributions on a dedicated page.
-We created this site for the MOSA Summer 2023 Hackathon. It was made using React and Node.js for the frontend, and Firebase for the backend.
+This tool is meant for MCIT students who are looking for supplemental resources for course material. In the site, users can select a course and a module within that course, and it will display all of the available resources that other students have posted. Users can also see their own contributions on a dedicated page.
 
-Include the link to your Devpost project page here: [Devpost](https://...)
+It was made using React for the frontend, and Firebase for the backend.
+
+Include the link to your Devpost project page here: [Devpost](https://devpost.com/software/penn-resources)
 
 ### Authors
 
-* **Lea Emerlyn** -leaodovia – lemerlyn@seas.upenn.edu – [GitHub](https://github.com/user_name)
+* **Lea Emerlyn** -leaodovia – lemerlyn@seas.upenn.edu – [GitHub](https://github.com/Leaemerlyn)
 * **Ben Swanson** - Devpost ID – bswan1@seas.upenn.edu – [GitHub](https://github.com/user_name)
 * **Leven Cai** - levencai – levencai@seas.upenn.edu – [GitHub](https://github.com/208cai5099)
 * **Abdullah Amer** - Devpost ID - abdamer@seas.upenn.edu - [GitHub](https://github.com/user_name)
 
 ## Usage
 
-This section walks a prospective user through the process of installing and running the project on their local machine. The more detailed and the more accurate, the better. User-friendly instructions will entice prospective users (including judges) to engage more deeply with your project, which could improve your hackathon score.
+As MCIT students, we use a multitude of resources to supplement course material. These can be articles, videos, forums, or anything that clarifies what’s being taught in class. Often, these resources are shared between individuals, in study groups, or through other informal channels. However, this leads to valuable resources being lost deep in the archives of Slack, and most students who would benefit from these materials may never see them.
+This is why we created Penn Resources, a site where students can share and describe anything they found useful, as well as upvote resources posted by others. Our goal is to combine the resourcefulness of all MCIT students in a way that will be helpful in all phases of class preparation. We hope you enjoy it!
+
 
 ### Prerequisites
 
-What prerequisites must be installed in order to run your project, and how do you install them?
+There are no prerequisites to using the site. However, if you want to contribute a resource, you must have a @seas.upenn.edu email. This is to ensure that only Penn students can contribute resources. 
 
 ```
 Provide code samples in this fenced code block.
@@ -29,31 +32,40 @@ Provide code samples in this fenced code block.
 
 Give a step-by-step rundown of how to **install** your project.
 
-State step 1.
+To install dependencies, run 
+
 ```
-Provide code samples in this fenced code block.
+npm 
 ```
 
-State step 2.
+Then to start up the app run
 ```
-Provide code samples in this fenced code block.
+npm start
 ```
 
-Etc.
 
 ### Deployment
 
-Give a step-by-step rundown of how to **use** your project. Including screenshots in this section can be highly effective for highlighting specific features of your project.
+To view resources, use the two drop down menus. 
 
-State step 1.
-```
-Provide code samples in this fenced code block.
-```
+![Screenshot](courseModuleDropdown.png)
 
-State step 2.
-```
-Provide code samples in this fenced code block.
-```
+Then click on any card:
+
+![Screenshot](cards.png)
+
+To submit a resource, users need to login with their @seas.upenn.edu email. Use the login button on the top right corner.
+
+Click on your name and go to My Contributions. Here you will see a list of your contributions to Penn Resources. 
+
+![Screenshot](profile.png)
+
+Click on the Add resources button to add a new resource. 
+
+Click on the pencil icon next to each resource card to update a resource.
+
+If there is any trouble, please contact us with emails in the contact tab. 
+
 
 Etc.
 
@@ -61,16 +73,12 @@ Etc.
 
 ### Tools used
 
-Which frameworks, libraries, or other tools did you use to create your project?
-
 * [React](https://react.dev/) - A Javascript-based framework for website development
 * [RSuite](https://rsuitejs.com/) - A library of React user-interface components for website development
 * [Firebase](https://firebase.google.com/) - A backend infrastructure service provided by Google
 * [React Icons](https://react-icons.github.io/react-icons) - A library of icons for website design
 
 ### Acknowledgments
-
-Use anyone else's code? Inspired by a particular project? List / link here.
 
 * Inspiration: The layout of the website was inspired by [MCITCentral](https://mcitcentral.com/).
 * Use of RSuite: We followed the instructions and code examples from the official [RSuite](https://rsuitejs.com/) website and online guides to use their provided components ([React Form](https://www.geeksforgeeks.org/react-suite-form-component/) and [React Button](https://www.geeksforgeeks.org/react-suite-button-size/)).
