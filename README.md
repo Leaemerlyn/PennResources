@@ -48,17 +48,17 @@ npm start
 
 To view resources, use the two drop down menus. 
 
-![Screenshot](courseModuleDropdown.png)
+![Screenshot](public/courseModuleDropdown.png)
 
 Then click on any card:
 
-![Screenshot](cards.png)
+![Screenshot](public/cards.png)
 
 To submit a resource, users need to login with their @seas.upenn.edu email. Use the login button on the top right corner.
 
 Click on your name and go to My Contributions. Here you will see a list of your contributions to Penn Resources. 
 
-![Screenshot](profile.png)
+![Screenshot](public/profile.png)
 
 Click on the Add resources button to add a new resource. 
 
