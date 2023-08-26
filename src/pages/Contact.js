@@ -43,8 +43,12 @@ export function Contact ( page ) {
             </Panel>
             <Panel header="Abdullah Amer" bordered>
                 <p>
-                  abdamer@seas.upenn.edu
+                  abdamer@seas.upenn.edu 
                 </p> 
+                <p>
+                Hi everyone, thanks for checking out the site and contributing! I am a local new yorker and 
+                  I am going into my 3rd semester of MCIT. I am an aspiring software engineer.
+                </p>
             </Panel>
             <Panel header="Ben Swanson" bordered>
               <p>
