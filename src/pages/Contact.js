@@ -28,7 +28,7 @@ export function Contact ( page ) {
                   lemerlyn@seas.upenn.edu
                 </p>
                 <p>
-                  Thanks for visiting the page! I currently work as a creative technologist building full stack web apps for UX Designers. I studied Human-Computer Interaction and Media Design at Carnegie Mellon. I'm grew up in NYC and love it here in the east coast. 
+                  Thanks for visiting the page! I currently work as a creative technologist building full stack web apps for UX Designers. I studied Human-Computer Interaction and Media Design at Carnegie Mellon. I grew up in NYC and love it here in the east coast. 
                 </p>
             </Panel>
             <Panel header="Leven Cai" bordered>
